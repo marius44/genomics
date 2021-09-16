@@ -1,0 +1,11 @@
+#Hay que convertir los ? en NNNNN
+anvi-script-reformat-fasta --seq-type NT Contig_Hven4.fasta -o Contig_Hven4_nts.fasta
+
+#se crea la base de datos con el fasta sin ?????
+anvi-gen-contigs-database -f Contig_Hven4_nts.fasta -o Hven4_contigs.db
+
+# Se corren los kegg y kofams
+anvi-run-kegg-kofams -c Hven4_contigs.db -T 23 --just-do-it
+
+#Se calculan las rutas
+anvi-estimate-metabolism -c Hven4_contigs.db
