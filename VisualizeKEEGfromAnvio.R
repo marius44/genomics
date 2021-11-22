@@ -6,7 +6,7 @@ library("dplyr")
 
 setwd("/home/user/Escritorio/mario/PGAP_NCBI/Hven4/")
 
-kegg_table_Hven4 <- read.table("/home/user/Escritorio/mario/PGAP_NCBI/Hven4/kegg-metabolism_modules.txt", sep = "\t", header = T)
+kegg_table_Hven4 <- read.table("/home/user/Escritorio/mario/PGAP_NCBI/Hven4/Hven4_kegg-metabolism_modules.txt", sep = "\t", header = T) #en mi primer intento hubo  un error
 str(kegg_table_Hven4)
 kegg_Hven4 <- ggplot(kegg_table_Hven4, 
                      aes(x=module_category, 
@@ -188,3 +188,69 @@ xeno_Hven7_plot <- ggplot(xeno_Hven7,
 
 xeno_Hven7_plot <- xeno_Hven7_plot + theme(legend.position="bottom", legend.box = "horizontal")
 xeno_Hven7_plot
+
+
+####################
+#PARA VER TODOS EN UNA SOLA GRAFICA
+#UNIR DATA FRAMES
+#Con tidyverse
+#install.packages("tidyverse")
+library("tidyverse")
+tablas_unidas_Hjan13_y_Hjan13 <- tablas_unidas_Hjan13_y_Hjan13 + theme(legend.position="bottom", legend.box = "horizontal")
+
+str(kegg_table_Hjan13)
+str(kegg_table_Hjan13)
+tablas_unidas_Hjan13_y_Hjan13 <- ggplot(tablas_unidas, 
+                                        aes(x=genome_name, 
+                                            y=module_subcategory,
+                                            #size=module_completeness,
+                                            color=module_completeness)) +
+  geom_point(size=3) + 
+  ggtitle("KEGG metabolism modules", subtitle = "UNidas") +
+  guides(fill=guide_legend(title=" "))+
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90))+
+  labs(ylab="module", xlab="category") +
+  scale_fill_igv()
+
+tablas_unidas_Hjan13_y_Hjan13
+
+
+tablas_unidas_Hven4_Hven7_Hven9 <- bind_rows(kegg_table_Hven4, kegg_table_Hven7, kegg_table_Hven9)
+str(tablas_unidas_Hven4_Hven7_Hven9)
+#View(tablas_unidas_Hven4_Hven7_Hven9)
+tablas_unidas_Hven4_Hven7_Hven9 <- ggplot(tablas_unidas_Hven4_Hven7_Hven9, 
+                                          aes(x=genome_name, 
+                                              y=module_subcategory,
+                                              #size=module_completeness,
+                                              color=module_completeness)) +
+  geom_point(size=3) + 
+  ggtitle("KEGG metabolism modules", subtitle = "UNidas") +
+  guides(fill=guide_legend(title=" "))+
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90))+
+  labs(ylab="module", xlab="category") +
+  scale_fill_igv()
+
+
+tablas_unidas_Hven4_Hven7_Hven9
+
+all_tables <- bind_rows(kegg_table_Hven4, kegg_table_Hven7, kegg_table_Hven9, kegg_table_Hjan13, kegg_table_Hjan14)
+str(all_tables)
+#View(all_tables)
+all_tables_kegg <- ggplot(all_tables,
+                          aes(x=genome_name, 
+                          y=module_subcategory,
+                          #size=module_completeness,
+                          color=module_completeness)) +
+  geom_point(size=3) + 
+  ggtitle("KEGG metabolism modules", subtitle = "All samples") +
+  guides(fill=guide_legend(title=" "))+
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90))+
+  labs(ylab="module", xlab="category") +
+  scale_fill_igv()
+all_tables_kegg
+
+
+
