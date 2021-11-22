@@ -1,3 +1,7 @@
+#Estos comandos son para el analisis de rutas metabolicas posteriores al ensamble de genomas. Utiliza anvio7 para hacerlo.
+
+conda activate anvio-7
+
 #Hay que convertir los ? en NNNNN
 anvi-script-reformat-fasta --seq-type NT Contig_Hven4.fasta -o Contig_Hven4_nts.fasta
 
