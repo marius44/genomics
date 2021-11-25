@@ -6,14 +6,14 @@ library("dplyr")
 
 setwd("/home/user/Escritorio/mario/PGAP_NCBI/Hven4/")
 
-kegg_table_Hven4 <- read.table("/home/user/Escritorio/mario/PGAP_NCBI/Hven4/Hven4_kegg-metabolism_modules.txt", sep = "\t", header = T) #en mi primer intento hubo  un error
+kegg_table_Hven4 <- read.table("/home/user/Escritorio/mario/PGAP_NCBI/Hven4/Hven4_kegg-metabolism_modules.txt", sep = "\t", header = T)
 str(kegg_table_Hven4)
 kegg_Hven4 <- ggplot(kegg_table_Hven4, 
                      aes(x=module_category, 
                          y=module_subcategory,
-                         size=module_completeness,
+                         #size=module_completeness,
                          color=module_completeness)) +
-  geom_point() + 
+  geom_point(size=3) + 
   ggtitle("KEGG metabolism modules", subtitle = "Hven4") +
   guides(fill=guide_legend(title=" "))+
   theme_bw() +
@@ -31,9 +31,9 @@ str(kegg_table_Hven7)
 kegg_table7 <- ggplot(kegg_table_Hven7, 
                      aes(x=module_category, 
                          y=module_subcategory,
-                         size=module_completeness,
+                         #size=module_completeness,
                          color=module_completeness)) +
-  geom_point() + 
+  geom_point(size=3) +
   ggtitle("KEGG metabolism modules", subtitle = "Hven7") +
   guides(fill=guide_legend(title=" "))+
   theme_bw() +
@@ -53,9 +53,9 @@ str(kegg_table_Hven9)
 kegg_table9 <- ggplot(kegg_table_Hven9, 
                       aes(x=module_category, 
                           y=module_subcategory,
-                          size=module_completeness,
+                          #size=module_completeness,
                           color=module_completeness)) +
-  geom_point() + 
+  geom_point(size=3) + 
   ggtitle("KEGG metabolism modules", subtitle = "Hven9") +
   guides(fill=guide_legend(title=" "))+
   theme_bw() +
@@ -73,9 +73,9 @@ str(kegg_table_max1)
 kegg_max1 <- ggplot(kegg_table_max1, 
                       aes(x=module_category, 
                           y=module_subcategory,
-                          size=module_completeness,
+                          #size=module_completeness,
                           color=module_completeness)) +
-  geom_point() + 
+  geom_point(size=3) + 
   ggtitle("KEGG metabolism modules", subtitle = "maxbin1") +
   guides(fill=guide_legend(title=" "))+
   theme_bw() +
@@ -93,9 +93,9 @@ str(kegg_table_Hjan13)
 kegg_Hjan13 <- ggplot(kegg_table_Hjan13, 
                      aes(x=module_category, 
                          y=module_subcategory,
-                         size=module_completeness,
+                         #size=module_completeness,
                          color=module_completeness)) +
-  geom_point() + 
+  geom_point(size=3) + 
   ggtitle("KEGG metabolism modules", subtitle = "Hjan13") +
   guides(fill=guide_legend(title=" "))+
   theme_bw() +
@@ -112,9 +112,9 @@ str(kegg_table_Hjan14)
 kegg_Hjan14 <- ggplot(kegg_table_Hjan14, 
                       aes(x=module_category, 
                           y=module_subcategory,
-                          size=module_completeness,
+                          #size=module_completeness,
                           color=module_completeness)) +
-  geom_point() + 
+  geom_point(size=3) + 
   ggtitle("KEGG metabolism modules", subtitle = "Hjan14") +
   guides(fill=guide_legend(title=" "))+
   theme_bw() +
@@ -147,10 +147,15 @@ grid.arrange(kegg_Hven9_chido, kegg_Hven7_chido,kegg_Hven4_chido)
 
 #################################3
 #Vamos a filtrar con dplyr
+
 Lipids_Hven7 <- filter(kegg_table_Hven7, module_category == "Lipid metabolism")
 xeno_Hven7 <- filter(kegg_table_Hven7, module_category == "Xenobiotics biodegradation")
 xeno_Hven4 <- filter(kegg_table_Hven4, module_category == "Xenobiotics biodegradation")
 xeno_Hven9 <- filter(kegg_table_Hven9, module_category == "Xenobiotics biodegradation")
+xeno_Hven9 <- filter(kegg_table_Hven9, module_category == "Xenobiotics biodegradation")
+
+xeno_maxbin <- filter(kegg_table_max1, module_category == "Xenobiotics biodegradation")
+
 
 #
 polyketides_Hven9 <- filter(kegg_table_Hven9, module_category == "Biosynthesis of other secondary metabolites")
@@ -160,16 +165,18 @@ polyketides_Hven7_plot <- ggplot(polyketides_Hven7,
                           y=module_subcategory,
                           #size=module_completeness,
                           color=module_completeness)) +
-  geom_point() + 
+  geom_point(size=3) + 
   ggtitle("poliketydes", subtitle = "Hven7") +
   guides(fill=guide_legend(title=" "))+
   theme_bw() +
   #theme(axis.text.x = element_text(angle = 90))+
   labs(ylab="module", xlab="category") +
   scale_fill_igv()
+polyketides_Hven7_plot
+ggsave("polyke_hven7.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
 
 xeno_Hven7_plot <- polyketides_Hven7_plot + theme(legend.position="bottom", legend.box = "horizontal")
-polyketides_Hven7_plot
+xeno_Hven7_plot
 #
 
 
@@ -178,7 +185,7 @@ xeno_Hven7_plot <- ggplot(xeno_Hven7,
                           y=module_subcategory,
                           #size=module_completeness,
                           color=module_completeness)) +
-  geom_point() + 
+  geom_point(size=3) + 
   ggtitle("Xenobiotics", subtitle = "Hven7") +
   guides(fill=guide_legend(title=" "))+
   theme_bw() +
@@ -188,6 +195,51 @@ xeno_Hven7_plot <- ggplot(xeno_Hven7,
 
 xeno_Hven7_plot <- xeno_Hven7_plot + theme(legend.position="bottom", legend.box = "horizontal")
 xeno_Hven7_plot
+ggsave("xeno_hven7.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
+##############33
+##################
+xeno_maxbin1_plot <- ggplot(xeno_maxbin,
+                          aes(x=module_name, 
+                              y=module_completeness,
+                              fill=as.factor(module_completeness))) +
+  geom_col() + 
+  ggtitle("Xenobiotics", subtitle = "Maxbin1") +
+  guides(fill=guide_legend(title=" "))+
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))+
+  labs(ylab="module", xlab="category") +
+  scale_fill_igv()+ 
+  legend
+
+xeno_maxbin1_plot <- xeno_maxbin1_plot + theme(legend.position="bottom", legend.box = "horizontal")
+xeno_maxbin1_plot
+ggsave("xeno_maxbin1.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
+
+
+
+
+####################################33
+
+
+modulos_completos_maxbin1 <- xeno_maxbin <- filter(kegg_table_max1, module_is_complete == "True")
+
+modulos_completos_maxbin1_a <- ggplot(modulos_completos_maxbin1, 
+                      aes(x=module_category, 
+                          y=module_subcategory,
+                          #size=module_completeness,
+                          color=module_completeness)) +
+  geom_bar() + 
+  ggtitle("KEGG metabolism modules", subtitle = "MAG Maxbin1") +
+  guides(fill=guide_legend(title=" "))+
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90))+
+  labs(ylab="module", xlab="category") +
+  scale_fill_igv()
+
+modulos_completos_maxbin1_a <- modulos_completos_maxbin1_a + theme(legend.position="bottom", legend.box = "horizontal")
+modulos_completos_maxbin1_a
+
+xeno_Hven7
 
 
 ####################
@@ -252,5 +304,45 @@ all_tables_kegg <- ggplot(all_tables,
   scale_fill_igv()
 all_tables_kegg
 
+#Otros graficos
+#MEJOR PORQUE ES UN HEATMAP
+#TAMBIÉN PUSE ELA LEYENDA CORRIDA
+all_tables_kegg_tiles <- ggplot(all_tables,
+                          aes(x=genome_name, 
+                              y=module_subcategory,
+                              fill=module_completeness)) +
+  geom_tile() + 
+  ggtitle("KEGG metabolism modules", subtitle = "All samples") +
+  guides(fill=guide_legend(title="Completeness (fraction)"))+
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90))+
+  xlab("Strain") +
+  ylab("Module subcategory") +
+  scale_fill_gradient( low = "#132B43",
+                       high = "#56B1F7",
+                       space = "Lab",
+                       guide = FALSE,
+                       aesthetics = "fill") #Esto es para que el color sea un gradiente dependiente de los valores de fill
+all_tables_kegg_tiles 
 
 
+
+
+########################################################
+'''
+
+all_tables_kegg <- ggplot(all_tables,
+                          mapping = aes(x=genome_name, 
+                              y=module_subcategory,
+                              #size=module_completeness,
+                              fill=as.factor(module_completeness))) +
+  geom_bin2d(color="white") + 
+  ggtitle("KEGG metabolism modules", subtitle = "All samples") +
+  guides(fill=guide_legend(title=" "))+
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90))+
+  labs(ylab="module", xlab="category") #+
+#  scale_fill_manual(values=terrain.colors(90))
+#all_tables_kegg# + coord_fixed()
+all_tables_kegg + scale_fill_fermenter()
+'''
