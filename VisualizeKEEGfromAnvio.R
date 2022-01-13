@@ -23,11 +23,11 @@ kegg_table_Hven9 <- read.table("/home/user/Escritorio/mario/PGAP_NCBI/Hven9/kegg
 kegg_table_Hven9[2] <- NULL #ELIMINA LA COLUMNA 2 que no tiene nombre de metagenomas y tiene un punto
 kegg_table_Hven9 <- mutate(kegg_table_Hven9, genome_name="Hven9")
 str(kegg_table_Hven9)
-kegg_table_Hjan13 <- read.table("/home/user/Escritorio/mario/PGAP_NCBI/Hven4/kegg-metabolism_modules_Hjan13.txt", sep = "\t", header = T)
+kegg_table_Hjan13 <- read.table("/home/user/Escritorio/mario/PGAP_NCBI/Hjan13_3M_kegg-metabolism_modules.txt", sep = "\t", header = T)
 kegg_table_Hjan13[2] <- NULL #ELIMINA LA COLUMNA 2 que no tiene nombre de metagenomas y tiene un punto
 kegg_table_Hjan13 <- mutate(kegg_table_Hjan13, genome_name="Hjan13")
 str(kegg_table_Hjan13)
-kegg_table_Hjan14 <- read.table("/home/user/Escritorio/mario/PGAP_NCBI/Hven4/kegg-metabolism_modules.txt", sep = "\t", header = T)
+kegg_table_Hjan14 <- read.table("/home/user/Escritorio/mario/PGAP_NCBI/Hjan14_3M_kegg-metabolism_modules.txt", sep = "\t", header = T)
 kegg_table_Hjan14[2] <- NULL #ELIMINA LA COLUMNA 2 que no tiene nombre de metagenomas y tiene un punto
 kegg_table_Hjan14 <- mutate(kegg_table_Hjan14, genome_name="Hjan14")
 str(kegg_table_Hjan14)
@@ -66,9 +66,39 @@ kegg_table_Synechococcus_metabat2.14[2] <- NULL #ELIMINA LA COLUMNA 2 que no tie
 kegg_table_Synechococcus_metabat2.14 <- mutate(kegg_table_Synechococcus_metabat2.14, genome_name="Synechococcus_metabat2.14")
 str(kegg_table_Synechococcus_metabat2.14)
 
+kegg_table_Alteromonadaceae_metabat2.30 <- read.table("~/Escritorio/mario/PGAP_NCBI/MAGs/Alteromonadaceae_metabat2.30.fa.contigs_modules.txt", sep = "\t", header = T)
+kegg_table_Alteromonadaceae_metabat2.30[2] <- NULL #ELIMINA LA COLUMNA 2 que no tiene nombre de metagenomas y tiene un punto
+kegg_table_Alteromonadaceae_metabat2.30 <- mutate(kegg_table_Alteromonadaceae_metabat2.30, genome_name="Alteromonadaceae_metabat2.30")
+str(kegg_table_Alteromonadaceae_metabat2.30)
+
+kegg_table_Actinomycetia_maxbin.024 <- read.table("~/Escritorio/mario/PGAP_NCBI/MAGs/Actinomycetia_maxbin.024.fasta_sub.contigs_modules.txt", sep = "\t", header = T)
+kegg_table_Actinomycetia_maxbin.024[2] <- NULL #ELIMINA LA COLUMNA 2 que no tiene nombre de metagenomas y tiene un punto
+kegg_table_Actinomycetia_maxbin.024 <- mutate(kegg_table_Actinomycetia_maxbin.024, genome_name="Actinomycetia_maxbin.024")
+str(kegg_table_Actinomycetia_maxbin.024)
+
+kegg_table_Actinobacteria_metabat2.11 <- read.table("~/Escritorio/mario/PGAP_NCBI/MAGs/Actinobacteria_metabat2.11.fa.contigs_modules.txt", sep = "\t", header = T)
+kegg_table_Actinobacteria_metabat2.11[2] <- NULL #ELIMINA LA COLUMNA 2 que no tiene nombre de metagenomas y tiene un punto
+kegg_table_Actinobacteria_metabat2.11 <- mutate(kegg_table_Actinobacteria_metabat2.11, genome_name="Actinobacteria_metabat2.11")
+str(kegg_table_Actinobacteria_metabat2.11)
+
+kegg_table_Planctomycetes_metabat2.23 <- read.table("~/Escritorio/mario/PGAP_NCBI/MAGs/Planctomycetes_metabat2.23.fa.contigs_modules.txt", sep = "\t", header = T)
+kegg_table_Planctomycetes_metabat2.23[2] <- NULL #ELIMINA LA COLUMNA 2 que no tiene nombre de metagenomas y tiene un punto
+kegg_table_Planctomycetes_metabat2.23 <- mutate(kegg_table_Planctomycetes_metabat2.23, genome_name="Planctomycetes_metabat2.23")
+str(kegg_table_Planctomycetes_metabat2.23)
+
+kegg_table_Saccharospirillaceae_metabat2.20 <- read.table("~/Escritorio/mario/PGAP_NCBI/MAGs/Saccharospirillaceae_metabat2.20.fa.contigs_modules.txt", sep = "\t", header = T)
+kegg_table_Saccharospirillaceae_metabat2.20[2] <- NULL #ELIMINA LA COLUMNA 2 que no tiene nombre de metagenomas y tiene un punto
+kegg_table_Saccharospirillaceae_metabat2.20 <- mutate(kegg_table_Saccharospirillaceae_metabat2.20, genome_name="Saccharospirillaceae_metabat2.20")
+str(kegg_table_Saccharospirillaceae_metabat2.20)
+
+kegg_table_Bacteroidetes_maxbin.007 <- read.table("~/Escritorio/mario/PGAP_NCBI/MAGs/Bacteroidetes_maxbin.007.fasta.contigs_modules.txt", sep = "\t", header = T)
+kegg_table_Bacteroidetes_maxbin.007[2] <- NULL #ELIMINA LA COLUMNA 2 que no tiene nombre de metagenomas y tiene un punto
+kegg_table_Bacteroidetes_maxbin.007 <- mutate(kegg_table_Bacteroidetes_maxbin.007, genome_name="Bacteroidetes_maxbin.007")
+str(kegg_table_Bacteroidetes_maxbin.007)
 
 
-#################################################################"""""""""""2
+
+###############################################################"""""""""""2
 kegg_Hven4 <- ggplot(kegg_table_Hven4, 
                      aes(x=module_category, 
                          y=module_subcategory,
@@ -1003,30 +1033,33 @@ all_tables <- bind_rows(kegg_table_Hven4, kegg_table_Hven7, kegg_table_Hven9,
                         kegg_table_Hjan13, kegg_table_Hjan14, kegg_table_bins_metagenome, 
                         kegg_table_Halomonas_maxbin_001, kegg_table_Halomonas_metabat2_2,
                         kegg_table_Lacimicrobium_maxbin.004, kegg_table_Lacimicrobium_metabat2.30,
-                        kegg_table_nitriluruptor_maxbin_009, kegg_table_Synechococcus_metabat2.14)
+                        kegg_table_nitriluruptor_maxbin_009, kegg_table_Synechococcus_metabat2.14,
+                        kegg_table_Alteromonadaceae_metabat2.30, kegg_table_Actinomycetia_maxbin.024,
+                        kegg_table_Actinobacteria_metabat2.11, kegg_table_Planctomycetes_metabat2.23,
+                        kegg_table_Saccharospirillaceae_metabat2.20, kegg_table_Bacteroidetes_maxbin.007)
 str(all_tables)
 #solo metagenomas
-kegg_table_bins_metagenome_tiles <- ggplot(kegg_table_bins_metagenome, 
-                                           aes(x=genome_name, 
-                                               y=module_subcategory,
-                                               fill=module_completeness)) +
-  geom_tile(color="white",
-            lwd = 0.3,
-            linetype = 1) + 
-  ggtitle("KEGG metabolism modules", subtitle = "All samples") +
-  guides(fill=guide_legend(title="Completeness (fraction)"), guide_colourbar(barwidth = 0.5,
-                                                                             barheight = 20))+
-  theme_bw() +
-  theme(axis.text.x = element_text(angle = 90))+
-  xlab("Strain") +
-  ylab("Module subcategory") +
-  scale_fill_gradient( low = "#132B43",
-                       high = "#56B1F7",
-                       space = "Lab",
-                       guide = FALSE,
-                       aesthetics = "fill") #Esto es para que el color sea un gradiente dependiente de los valores de fill
+#kegg_table_bins_metagenome_tiles <- ggplot(kegg_table_bins_metagenome, 
+#                                           aes(x=genome_name, 
+ #                                              y=module_subcategory,
+  #                                             fill=module_completeness)) +
+#  geom_tile(color="white",
+ #           lwd = 0.3,
+  #          linetype = 1) + 
+  #ggtitle("KEGG metabolism modules", subtitle = "All samples") +
+#  guides(fill=guide_legend(title="Completeness (fraction)"), guide_colourbar(barwidth = 0.5,
+ #                                                                            barheight = 20))+
+  #theme_bw() +
+#  theme(axis.text.x = element_text(angle = 90))+
+ # xlab("Strain") +
+  #ylab("Module subcategory") +
+#  scale_fill_gradient( low = "#132B43",
+ #                      high = "#56B1F7",
+  #                     space = "Lab",
+   #                    guide = FALSE,
+    #                   aesthetics = "fill") #Esto es para que el color sea un gradiente dependiente de los valores de fill
 
-kegg_table_bins_metagenome_tiles
+#kegg_table_bins_metagenome_tiles
 
 
 #$%#%"
@@ -1037,7 +1070,10 @@ all_tables$genome_name <- factor(all_tables$genome_name,
                                  levels = c("Hven4", "Hven7", "Hven9", "Hjan13", "Hjan14", "Metagenome",
                                             "Halomonas_maxbin_001", "Halomonas_metabat2.2",
                                             "Nitriliruptor_maxbin.009", "Lacimicrobium_maxbin.004", 
-                                            "Lacimicrobium_metabat2.30", "Synechococcus_metabat2.14"))
+                                            "Lacimicrobium_metabat2.30", "Synechococcus_metabat2.14",
+                                            "Alteromonadaceae_metabat2.30", "Actinomycetia_maxbin.024",
+                                            "Actinobacteria_metabat2.11", "Planctomycetes_metabat2.23",
+                                            "Saccharospirillaceae_metabat2.20", "Bacteroidetes_maxbin.007"))
 
 all_tables_kegg_tiles <- ggplot(all_tables,
                                 aes(x=genome_name, 
@@ -1065,8 +1101,8 @@ all_tables_kegg_tiles + coord_fixed()
 
 
 
-
-ggsave("GENOMES_VS_METAGENOME_VS_MAGS2.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
+ggsave("GENOMES_VS_METAGENOME_VS_MAGS_all.png", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
+ggsave("GENOMES_VS_METAGENOME_VS_MAGS_all.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
 
 
 ######
@@ -1097,8 +1133,8 @@ metabolic_capacity_plot <- ggplot(metabolic_capacity,
 
 metabolic_capacity_plot + coord_fixed()
 
-ggsave("Cap_metabolicas.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
-ggsave("Cap_metabolicas.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
+ggsave("Cap_metabolicas_all.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
+ggsave("Cap_metabolicas_all.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
 
 #####
 #fatty acids
@@ -1129,8 +1165,8 @@ fatty_acids_all_plot <- ggplot(fatty_acids_all,
 
 fatty_acids_all_plot + coord_fixed()
 
-ggsave("fatty_acids.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
-ggsave("fatty_acids.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
+ggsave("fatty_acids_all.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
+ggsave("fatty_acids_all.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
 #####
 #aromaticos
 aromatics_all <- all_tables %>% 
@@ -1159,8 +1195,8 @@ aromatics_all_plot <- ggplot(aromatics_all,
 
 aromatics_all_plot + coord_fixed()
 
-ggsave("aromatics_all.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
-ggsave("aromatics_all.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
+ggsave("aromatics_all_all.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
+ggsave("aromatics_all_all.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
 
 ### 
 #central_metabolism
@@ -1192,8 +1228,8 @@ central_metabolism_all_plot <- ggplot(central_metabolism_all,
 
 central_metabolism_all_plot + coord_fixed()
 
-ggsave("central_metabolism_all.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
-ggsave("central_metabolism_all.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
+ggsave("central_metabolism_all_all.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
+ggsave("central_metabolism_all_all.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
 
 #########
 #Lipid
@@ -1224,8 +1260,8 @@ Lipid_all_plot <- ggplot(Lipid_all,
 
 Lipid_all_plot + coord_fixed()
 
-ggsave("Lipid metabolism_all.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
-ggsave("Lipid metabolism_all.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
+ggsave("Lipid metabolism_all_all.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
+ggsave("Lipid metabolism_all_all.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
 
 #########
 #nitrogen
@@ -1256,5 +1292,37 @@ Nitrogen_all_plot <- ggplot(Nitrogen_all,
 
 Nitrogen_all_plot + coord_fixed()
 
-ggsave("Nitrogen metabolism_all.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
-ggsave("Nitrogen metabolism_all.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
+ggsave("Nitrogen metabolism_all_all.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
+ggsave("Nitrogen metabolism_all_all.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
+
+#########
+#Lipopolysaccharide metabolism
+
+Lipopolysaccharide_metabolism_all <- all_tables %>% 
+  filter(module_subcategory  == "Lipopolysaccharide metabolism")
+#View(Nitrogen_all)
+
+Lipopolysaccharide_metabolism_all_plot <- ggplot(Lipopolysaccharide_metabolism_all,
+                            aes(x=genome_name, 
+                                y=module_name,
+                                fill=module_completeness)) +
+  geom_tile(color="white", #esto hace el heatmap y pone divisiones blancas
+            lwd = 0.3,
+            linetype = 1) + 
+  ggtitle("Lipopolysaccharide metabolism", subtitle = "All samples") +
+  guides(fill=guide_legend(title="Metabolic module completeness (fraction)"), guide_colourbar(barwidth = 0.5,
+                                                                                              barheight = 20))+
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90))+
+  xlab(" ") +
+  ylab("Module name") +
+  scale_fill_gradient( low = "#132B43", # #FFCC00 Amarillo http://derekogle.com/NCGraphing/resources/colors
+                       high = "#56B1F7", # #FF3300 Rojo
+                       space = "Lab",
+                       guide = FALSE,
+                       aesthetics = "fill") #Esto es para que el color sea un gradiente dependiente de los valores de fill
+
+Lipopolysaccharide_metabolism_all_plot + coord_fixed()
+
+ggsave("Lipopolysaccharide_metabolism_all_all.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
+ggsave("Nitrogen Lipopolysaccharide_metabolism_all_all.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
