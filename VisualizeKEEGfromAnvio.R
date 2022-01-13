@@ -4,6 +4,11 @@ library("ggsci")
 library("gridExtra")
 library("dplyr")
 
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#  install.packages("BiocManager")
+
+#BiocManager::install("pathview")
+
 setwd("/home/user/Escritorio/mario/PGAP_NCBI/Hven4/")
 
 kegg_table_Hven4 <- read.table("/home/user/Escritorio/mario/PGAP_NCBI/Hven4/Hven4_kegg-metabolism_modules.txt", sep = "\t", header = T)
@@ -1064,3 +1069,192 @@ all_tables_kegg_tiles + coord_fixed()
 ggsave("GENOMES_VS_METAGENOME_VS_MAGS2.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
 
 
+######
+#quiero ver solo los de capacidad metabolica
+metabolic_capacity <- all_tables %>% 
+  filter(module_subcategory  == "Metabolic capacity")
+#View(metabolic_capacity)
+
+metabolic_capacity_plot <- ggplot(metabolic_capacity,
+                                aes(x=genome_name, 
+                                    y=module_name,
+                                    fill=module_completeness)) +
+  geom_tile(color="white", #esto hace el heatmap y pone divisiones blancas
+            lwd = 0.3,
+            linetype = 1) + 
+  ggtitle("Metabolic capacities", subtitle = "All samples") +
+  guides(fill=guide_legend(title="Metabolic module completeness (fraction)"), guide_colourbar(barwidth = 0.5,
+                                                                                              barheight = 20))+
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90))+
+  xlab(" ") +
+  ylab("Module name") +
+  scale_fill_gradient( low = "#132B43", # #FFCC00 Amarillo http://derekogle.com/NCGraphing/resources/colors
+                       high = "#56B1F7", # #FF3300 Rojo
+                       space = "Lab",
+                       guide = FALSE,
+                       aesthetics = "fill") #Esto es para que el color sea un gradiente dependiente de los valores de fill
+
+metabolic_capacity_plot + coord_fixed()
+
+ggsave("Cap_metabolicas.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
+ggsave("Cap_metabolicas.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
+
+#####
+#fatty acids
+
+fatty_acids_all <- all_tables %>% 
+  filter(module_subcategory  == "Fatty acid metabolism")
+#View(fatty_acids_all)
+
+fatty_acids_all_plot <- ggplot(fatty_acids_all,
+                                  aes(x=genome_name, 
+                                      y=module_name,
+                                      fill=module_completeness)) +
+  geom_tile(color="white", #esto hace el heatmap y pone divisiones blancas
+            lwd = 0.3,
+            linetype = 1) + 
+  ggtitle("Fatty acid metabolism", subtitle = "All samples") +
+  guides(fill=guide_legend(title="Metabolic module completeness (fraction)"), guide_colourbar(barwidth = 0.5,
+                                                                                              barheight = 20))+
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90))+
+  xlab(" ") +
+  ylab("Module name") +
+  scale_fill_gradient( low = "#132B43", # #FFCC00 Amarillo http://derekogle.com/NCGraphing/resources/colors
+                       high = "#56B1F7", # #FF3300 Rojo
+                       space = "Lab",
+                       guide = FALSE,
+                       aesthetics = "fill") #Esto es para que el color sea un gradiente dependiente de los valores de fill
+
+fatty_acids_all_plot + coord_fixed()
+
+ggsave("fatty_acids.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
+ggsave("fatty_acids.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
+#####
+#aromaticos
+aromatics_all <- all_tables %>% 
+  filter(module_subcategory  == "Aromatics degradation")
+View(aromatics_all)
+
+aromatics_all_plot <- ggplot(aromatics_all,
+                               aes(x=genome_name, 
+                                   y=module_name,
+                                   fill=module_completeness)) +
+  geom_tile(color="white", #esto hace el heatmap y pone divisiones blancas
+            lwd = 0.3,
+            linetype = 1) + 
+  ggtitle("Aromatics metabolism", subtitle = "All samples") +
+  guides(fill=guide_legend(title="Metabolic module completeness (fraction)"), guide_colourbar(barwidth = 0.5,
+                                                                                              barheight = 20))+
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90))+
+  xlab(" ") +
+  ylab("Module name") +
+  scale_fill_gradient( low = "#132B43", # #FFCC00 Amarillo http://derekogle.com/NCGraphing/resources/colors
+                       high = "#56B1F7", # #FF3300 Rojo
+                       space = "Lab",
+                       guide = FALSE,
+                       aesthetics = "fill") #Esto es para que el color sea un gradiente dependiente de los valores de fill
+
+aromatics_all_plot + coord_fixed()
+
+ggsave("aromatics_all.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
+ggsave("aromatics_all.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
+
+### 
+#central_metabolism
+
+
+central_metabolism_all <- all_tables %>% 
+  filter(module_subcategory  == "Central carbohydrate metabolism")
+#View(central_metabolism_all)
+
+central_metabolism_all_plot <- ggplot(central_metabolism_all,
+                               aes(x=genome_name, 
+                                   y=module_name,
+                                   fill=module_completeness)) +
+  geom_tile(color="white", #esto hace el heatmap y pone divisiones blancas
+            lwd = 0.3,
+            linetype = 1) + 
+  ggtitle("Central carbohydrate metabolism", subtitle = "All samples") +
+  guides(fill=guide_legend(title="Metabolic module completeness (fraction)"), guide_colourbar(barwidth = 0.5,
+                                                                                              barheight = 20))+
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90))+
+  xlab(" ") +
+  ylab("Module name") +
+  scale_fill_gradient( low = "#132B43", # #FFCC00 Amarillo http://derekogle.com/NCGraphing/resources/colors
+                       high = "#56B1F7", # #FF3300 Rojo
+                       space = "Lab",
+                       guide = FALSE,
+                       aesthetics = "fill") #Esto es para que el color sea un gradiente dependiente de los valores de fill
+
+central_metabolism_all_plot + coord_fixed()
+
+ggsave("central_metabolism_all.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
+ggsave("central_metabolism_all.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
+
+#########
+#Lipid
+
+Lipid_all <- all_tables %>% 
+  filter(module_subcategory  == "Lipid metabolism")
+#View(Lipid_all)
+
+Lipid_all_plot <- ggplot(Lipid_all,
+                                      aes(x=genome_name, 
+                                          y=module_name,
+                                          fill=module_completeness)) +
+  geom_tile(color="white", #esto hace el heatmap y pone divisiones blancas
+            lwd = 0.3,
+            linetype = 1) + 
+  ggtitle("Lipid metabolism", subtitle = "All samples") +
+  guides(fill=guide_legend(title="Metabolic module completeness (fraction)"), guide_colourbar(barwidth = 0.5,
+                                                                                              barheight = 20))+
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90))+
+  xlab(" ") +
+  ylab("Module name") +
+  scale_fill_gradient( low = "#132B43", # #FFCC00 Amarillo http://derekogle.com/NCGraphing/resources/colors
+                       high = "#56B1F7", # #FF3300 Rojo
+                       space = "Lab",
+                       guide = FALSE,
+                       aesthetics = "fill") #Esto es para que el color sea un gradiente dependiente de los valores de fill
+
+Lipid_all_plot + coord_fixed()
+
+ggsave("Lipid metabolism_all.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
+ggsave("Lipid metabolism_all.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
+
+#########
+#nitrogen
+
+Nitrogen_all <- all_tables %>% 
+  filter(module_subcategory  == "Nitrogen metabolism")
+#View(Nitrogen_all)
+
+Nitrogen_all_plot <- ggplot(Nitrogen_all,
+                         aes(x=genome_name, 
+                             y=module_name,
+                             fill=module_completeness)) +
+  geom_tile(color="white", #esto hace el heatmap y pone divisiones blancas
+            lwd = 0.3,
+            linetype = 1) + 
+  ggtitle("Nitrogen metabolism", subtitle = "All samples") +
+  guides(fill=guide_legend(title="Metabolic module completeness (fraction)"), guide_colourbar(barwidth = 0.5,
+                                                                                              barheight = 20))+
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90))+
+  xlab(" ") +
+  ylab("Module name") +
+  scale_fill_gradient( low = "#132B43", # #FFCC00 Amarillo http://derekogle.com/NCGraphing/resources/colors
+                       high = "#56B1F7", # #FF3300 Rojo
+                       space = "Lab",
+                       guide = FALSE,
+                       aesthetics = "fill") #Esto es para que el color sea un gradiente dependiente de los valores de fill
+
+Nitrogen_all_plot + coord_fixed()
+
+ggsave("Nitrogen metabolism_all.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
+ggsave("Nitrogen metabolism_all.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
