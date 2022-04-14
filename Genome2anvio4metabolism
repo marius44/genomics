@@ -2,11 +2,20 @@
 
 conda activate anvio-7
 
+
+
 #Hay que convertir los ? en NNNNN
+# Si son bajadas de NCBI o por alguna razon los nombres tienen | agregar
+# Las banderas   -l 0 --simplify-names al siguiente comando, de no hacerlo el 
+#contigs-database tendrá un error.
 anvi-script-reformat-fasta --seq-type NT Contig_Hven4.fasta -o Contig_Hven4_nts.fasta
 
 #se crea la base de datos con el fasta sin ?????
 anvi-gen-contigs-database -f Contig_Hven4_nts.fasta -o Hven4_contigs.db
+
+#Siempre que sea la primera vez que se corre esto, es necesario configurar kegg y kofams
+#SOLO UNA VEZ
+#anvi-setup-kegg-kofams 
 
 # Se corren los kegg y kofams
 anvi-run-kegg-kofams -c Hven4_contigs.db -T 23 --just-do-it
