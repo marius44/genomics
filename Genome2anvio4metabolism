@@ -21,4 +21,4 @@ anvi-gen-contigs-database -f Contig_Hven4_nts.fasta -o Hven4_contigs.db
 anvi-run-kegg-kofams -c Hven4_contigs.db -T 23 --just-do-it
 
 #Se calculan las rutas
-anvi-estimate-metabolism -c Hven4_contigs.db
+anvi-estimate-metabolism -c Hven4_contigs.db -O prefijo_archivo_salida
