@@ -1,0 +1,6 @@
+# De momento es con roary
+
+conda activate roary
+
+# Todos los archivos  comparar denen de estar en formato gff3
+roary -f -r -e -n -v -g 5000000 --mafft -p 23 *.gff
