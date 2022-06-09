@@ -1,0 +1,32 @@
+#!/bin/bash
+#La version de anvio cargada actualmente (junio 2022) es la 7.1
+conda activate anvio-7.1
+
+#Crea lista_genomas.txt solo con los fasta en la carpeta
+ls *.fasta >> lista_genomas.txt
+
+# De la lista de genomas, los lee y les da formato para anvio 7
+cat lista_genomas.txt | while read line;do
+    anvi-script-reformat-fasta --seq-type NT "$line" -o $line.nts.fasta -l 0 --simplify-names
+done
+
+# crea una lista con los fasta con formato correcto para leerse en sl siguiente paso
+ls *.fasta.nts.fasta >> lista.nts.txt
+
+# Crea las db necesarias para anvio
+cat lista.nts.txt | while read line;do
+    anvi-gen-contigs-database -f "$line" -o $line.contigs.db
+done
+
+# crea una lista con los contigs.db con formato correcto para leerse en sl siguiente paso
+ls *.contigs.db >> lista.db.txt
+
+#kegg
+cat lista.db.txt | while read line;do
+    anvi-run-kegg-kofams -c "$line" -T 23 --just-do-it --skip-bitscore-heuristic
+done
+
+# Metabolismo
+cat lista.db.txt | while read line;do
+    anvi-estimate-metabolism -c "$line" -O "$line"
+done
