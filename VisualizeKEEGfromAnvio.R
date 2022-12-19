@@ -18,27 +18,27 @@ kegg_table_Halomonas_venusta_4743 <- mutate(kegg_table_Halomonas_venusta_4743, g
 
 kegg_table_Hven4 <- read.table("Halomonas_venusta_Hven4_modules.txt", sep = "\t", header = T)
 kegg_table_Hven4[2] <- NULL #ELIMINA LA COLUMNA 2 que no tiene nombre de metagenomas y tiene un punto
-kegg_table_Hven4 <- mutate(kegg_table_Hven4, genome_name="→ H. venusta Hven4")
+kegg_table_Hven4 <- mutate(kegg_table_Hven4, genome_name="H. venusta Hven4")
 str(kegg_table_Hven4)
 
 kegg_table_Hven7 <- read.table("Halomonas_venusta_Hven7_modules.txt", sep = "\t", header = T)
 kegg_table_Hven7[2] <- NULL #ELIMINA LA COLUMNA 2 que no tiene nombre de metagenomas y tiene un punto
-kegg_table_Hven7 <- mutate(kegg_table_Hven7, genome_name="→ H. venusta Hven7")
+kegg_table_Hven7 <- mutate(kegg_table_Hven7, genome_name="H. venusta Hven7")
 str(kegg_table_Hven7)
 
 kegg_table_Hven9 <- read.table("Halomonas_venusta_Hven9_modules.txt", sep = "\t", header = T)
 kegg_table_Hven9[2] <- NULL #ELIMINA LA COLUMNA 2 que no tiene nombre de metagenomas y tiene un punto
-kegg_table_Hven9 <- mutate(kegg_table_Hven9, genome_name="→ H. venusta Hven9")
+kegg_table_Hven9 <- mutate(kegg_table_Hven9, genome_name="H. venusta Hven9")
 str(kegg_table_Hven9)
 
 kegg_table_Hjan13 <- read.table("Halomonas_janggokensis_Hjan13_modules.txt", sep = "\t", header = T)
 kegg_table_Hjan13[2] <- NULL #ELIMINA LA COLUMNA 2 que no tiene nombre de metagenomas y tiene un punto
-kegg_table_Hjan13 <- mutate(kegg_table_Hjan13, genome_name="→ H. janggokensis Hjan13")
+kegg_table_Hjan13 <- mutate(kegg_table_Hjan13, genome_name="H. janggokensis Hjan13")
 str(kegg_table_Hjan13)
 
 kegg_table_Hjan14 <- read.table("Halomonas_janggokensis_Hjan14_modules.txt", sep = "\t", header = T)
 kegg_table_Hjan14[2] <- NULL #ELIMINA LA COLUMNA 2 que no tiene nombre de metagenomas y tiene un punto
-kegg_table_Hjan14 <- mutate(kegg_table_Hjan14, genome_name="→ H. janggokensis Hjan14")
+kegg_table_Hjan14 <- mutate(kegg_table_Hjan14, genome_name="H. janggokensis Hjan14")
 str(kegg_table_Hjan14)
 
 
@@ -64,11 +64,6 @@ kegg_table_Halomonas_beimenensis2 <- read.table("Halomonas_beimenensis_modules.t
 kegg_table_Halomonas_beimenensis2[2] <- NULL #ELIMINA LA COLUMNA 2 que no tiene nombre de metagenomas y tiene un punto
 kegg_table_Halomonas_beimenensis2 <- mutate(kegg_table_Halomonas_beimenensis2, genome_name="H. beimenensis NTU-11")
 str(kegg_table_Halomonas_beimenensis2)
-
-kegg_table_Halomonas_beimenensis <- read.table("Halomonas_beimenensis_NTU-111_modules.txt", sep = "\t", header = T)
-kegg_table_Halomonas_beimenensis[2] <- NULL #ELIMINA LA COLUMNA 2 que no tiene nombre de metagenomas y tiene un punto
-kegg_table_Halomonas_beimenensis <- mutate(kegg_table_Halomonas_beimenensis, genome_name="H. beimenensis")
-str(kegg_table_Halomonas_beimenensis)
 
 kegg_table_Halomonas_campaniensis <- read.table("Halomonas_campaniensis_modules.txt", sep = "\t", header = T)
 kegg_table_Halomonas_campaniensis[2] <- NULL #ELIMINA LA COLUMNA 2 que no tiene nombre de metagenomas y tiene un punto
@@ -141,7 +136,7 @@ str(kegg_table_Halomonas_titanicae)
 all_tables <- bind_rows(kegg_table_Halomonas_venusta_4743, kegg_table_Hven4, kegg_table_Hven7, kegg_table_Hven9, 
                         kegg_table_Hjan13, kegg_table_Hjan14, kegg_table_Halomonas_aestuarii,
                         kegg_table_Halomonas_alkaliphila, kegg_table_Halomonas_axialensis,
-                        kegg_table_Halomonas_beimenensis2, kegg_table_Halomonas_beimenensis,
+                        kegg_table_Halomonas_beimenensis2,
                         kegg_table_Halomonas_campaniensis, kegg_table_Halomonas_campisalis,
                         kegg_table_Halomonas_chromatireducens, kegg_table_Halomonas_elongata,
                         kegg_table_Halomonas_huangheensis, kegg_table_Halomonas_hydrothermalis,
@@ -163,11 +158,11 @@ str(all_tables)
 #Primero cambiaremos el orden de los valores de los nivels para que los ordene com yo quiero y no en orden alfabetico
 
 all_tables$genome_name <- factor(all_tables$genome_name, 
-                                 levels = c("H. venusta DSM 4743", "→ H. venusta Hven4", "→ H. venusta Hven7", 
-                                            "→ H. venusta Hven9", "→ H. janggokensis Hjan13", 
-                                            "→ H. janggokensis Hjan14", "H. aestuarii Hb3",
+                                 levels = c("H. venusta DSM 4743", "H. venusta Hven4", "H. venusta Hven7", 
+                                            "H. venusta Hven9", "H. janggokensis Hjan13", 
+                                            "H. janggokensis Hjan14", "H. aestuarii Hb3",
                                             "H. alkaliphila X3", "H. axialensis Althf1",
-                                            "H. beimenensis NTU-11", "H. beimenensis", 
+                                            "H. beimenensis NTU-11", 
                                             "H. campaniensis LS21", "H. campisalis SS10-MC5",
                                             "H. chromatireducens AGD 8-3", "H. elongata DSM 2581",
                                             "H. huangheensis BJGMM-B45", "H. hydrothermalis Y2",
@@ -199,9 +194,10 @@ all_tables_kegg_tiles <- ggplot(all_tables,
                        high = "#6600FF", # #FF3300 Rojo
                        space = "Lab",
                        guide = FALSE,
-                       aesthetics = "fill") #Esto es para que el color sea un gradiente dependiente de los valores de fill
+                       aesthetics = "fill")+ #Esto es para que el color sea un gradiente dependiente de los valores de fill
+  coord_fixed()
 
-all_tables_kegg_tiles + coord_fixed()
+all_tables_kegg_tiles 
 
 
 
@@ -209,6 +205,7 @@ all_tables_kegg_tiles + coord_fixed()
 
 ggsave("GENOMES_all4.png", path = ".", width = 10, height = 10, device = "png", dpi = 1000)
 ggsave("GENOMES_all4.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
+ggsave(file="GENOMES_all4.svg", plot=all_tables_kegg_tiles, width=10, height=8) # GUARDA EN SVG que se puede editar en Corel o InkScape
 
 
 ######
@@ -406,27 +403,30 @@ Nitrogen_all_plot <- ggplot(Nitrogen_all,
             lwd = 0.3,
             linetype = 1) + 
   ggtitle("Nitrogen metabolism", subtitle = "All samples") +
-  guides(fill=guide_legend(title="Metabolic \nmodule \ncompleteness \n(fraction)"), guide_colourbar(barwidth = 0.5,
-                                                                                              barheight = 20))+
+  guides(fill=guide_legend(title="Metabolic \nmodule \ncompleteness \n(fraction)"), 
+         guide_colourbar(barwidth = 0.5,barheight = 20))+
   theme_classic() +
-  theme(axis.text.x = element_text(face="plain", angle = 45, hjust = 1, size = 8),axis.text.y = element_text(size = 11),)+
-  
-  #     axis.text.y = element_text(size = 9), 
-  #    axis.title.y = element_text(size = 10, margin = margin(t = 0, r = 10, b = 0, l = 0)), 
-  #   legend.position = "none") +
+  theme(axis.text.x = element_text(face="plain", angle = 45, hjust = 1, size = 11),axis.text.y = element_text(size = 11),)+
+
+   #     axis.text.y = element_text(size = 9), 
+    #    axis.title.y = element_text(size = 10, margin = margin(t = 0, r = 10, b = 0, l = 0)), 
+     #   legend.position = "none") +
   xlab(" ") +
   ylab("Module subcategory") +
   scale_fill_gradient( low = "#33FFFF", # #FFCC00 Amarillo http://derekogle.com/NCGraphing/resources/colors
                        high = "#6600FF", # #FF3300 Rojo
                        space = "Lab",
                        guide = FALSE,
-                       aesthetics = "fill") #Esto es para que el color sea un gradiente dependiente de los valores de fill
+                       aesthetics = "fill")+ #Esto es para que el color sea un gradiente dependiente de los valores de fill
+  coord_fixed()
+
+Nitrogen_all_plot 
 
 
-Nitrogen_all_plot + coord_fixed()
 
-ggsave("Nitrogen metabolism_all4.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
-ggsave("Nitrogen metabolism_all4.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
+ggsave("Nitrogen metabolism_all5.png", path = ".", width = 10, height = 10, device = "png", dpi = 800)
+ggsave("Nitrogen metabolism_all5.pdf", path = ".", width = 10, height = 10, device = "pdf", dpi = 800)
+ggsave(file="Nitrogen metabolism_all5.svg", plot=Nitrogen_all_plot, width=12, height=8) # GUARDA EN SVG que se puede editar en Corel o InkScape
 
 #########
 #Lipopolysaccharide metabolism
