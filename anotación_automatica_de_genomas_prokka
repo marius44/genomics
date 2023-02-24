@@ -1,0 +1,14 @@
+#!/bin/bash
+# Esto hace una lista con elementos especificos de una extensión
+# Se alimenta de archivos en formato fasta
+echobash # Esto hace una lista con elementos especificos de una extensión # Se alimenta de archivos en formato fasta echo "Haciendo lista de genomas " ls *.fasta >> lista_genomas.txt  # Usamos un bucle while. Toma los las lineas de la lista generada en y da la orden. # Entre comillas la orden solo toma el nombre y se lo pega a algo, funciona bien para nombrar archivos generados. # Sin comillas queda como input directamente para el comando. cat lista_genomas.txt | while read line;do     echo "procesando " $line     prokka --outdir prokka_Halo --prefix "$line" --force --cpus 43 "$line"     echo "Listo, ya quedó anotado " $line done "Haciendo lista de genomas "
+ls *.fasta >> lista_genomas.txt
+
+# Usamos un bucle while. Toma los las lineas de la lista generada en y da la orden.
+# Entre comillas la orden solo toma el nombre y se lo pega a algo, funciona bien para nombrar archivos generados.
+# Sin comillas queda como input directamente para el comando.
+cat lista_genomas.txt | while read line;do
+    echo "procesando " $line
+    prokka --outdir prokka_Halo --prefix "$line" --force --cpus 43 "$line"
+    echo "Listo, ya quedó anotado " $line
+done
