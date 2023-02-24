@@ -1,4 +1,10 @@
-unicycler -1 HB100m_S2_L001_R1_001.good.fq -2 HB100m_S2_L001_R2_001.good.fq -o HB100m_qual_unicycler3 --spades_path /home/user/SPAdes-3.15.4-Linux/bin/spades.py -t 44 --keep 3 --verbosity 2 
+## Analisis de calidad con AfterQC 
+# -d permite colocar la carpeta con todos los fastq que querramos analizar sin tener que hacer una lista o hacerlo uno por uno
+pypy after.py -1 R1.fastq -2 R2.fastq (-d dir ) -f -1 -t -1
 
+## Ensamble con unicycler/spades
+unicycler -1 R1.fastq -2 R2.fq -o out_folder --spades_path /home/user/SPAdes-3.15.4-Linux/bin/spades.py -t 44 --keep 3 --verbosity 2 
 
+## Calidad de los ensambles
 python /home/user/quast-5.2.0/quast.py assembly.fasta -o HB105m_quast -t 40
+
