@@ -1,10 +1,11 @@
 # Hay dos principales anotadores que utilizamos en el grupo de investigación:
-# Prokka y PGAP (el del NCBI).
+# Prokka y PGAP (el del NCBI). Prokka es mucho más fácil de correr 
 
 #PGAP es un poco fastidioso porque hay que llenar los archivos submol.yaml e input.yaml. 
-# Una vez que se tienen esos archivos el comando queda:
-sudo ./pgap.py -n -v --no-internet --ignore-all-errors -c 12 -o ./annotated input.yaml
-# -c = Número de procesadores.
--o = Carpeta de salida donde se guardaran los archivos (output).
+# Una vez que se tienen esos archivos el comando queda.
+sudo ./pgap.py -D docker -v -r -o carpeta_de_salida input.yaml --cpus 4 --memory 200g --ignore-all-errors --no-internet --taxcheck
 
-# Prokka es mucho más fácil de correr 
+# --cpus = Número de procesadores (debe ser bajo 4 u 8 como máximo). Esto porque debe asignar más memoria a menos núcleos.
+# -o = Carpeta de salida donde se guardaran los archivos (output).
+# -D marca que se usará un contenedor docker
+# --taxcheck = Hará una clasificación taxonómica.
