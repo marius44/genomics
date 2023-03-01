@@ -2,6 +2,58 @@
 # Prokka y PGAP (el del NCBI). Prokka es mucho más fácil de correr 
 
 #PGAP es un poco fastidioso porque hay que llenar los archivos submol.yaml e input.yaml. 
+
+#########################
+#########################
+
+# Ejemplo de input.yaml
+fasta:
+  class: File
+  location: Hjan14_unicycler.fasta
+submol:
+  class: File
+  location: submol.yaml
+  
+
+#########################
+#########################
+
+
+# Ejemplo de submol.yaml
+topology: linear
+comment: 'Annotation'
+consortium: 'CSIC and UAM'
+organism:
+    genus_species: 'Halomonas janggokensis' 
+    strain: 'Hjan14'
+contact_info:
+    last_name: 'Hernandez-Soto'
+    first_name: 'Luis Mario'
+    email: '2191802965@correo.ler.uam.mx'
+    organization: 'Metropolitan Autonomous University'
+    department: 'Environmental Sciences'
+    street: 'Av. de las Garzas 10'
+    city: 'Lerma'
+    postal_code: '52000'
+    country: 'Mexico'
+    
+authors:
+    -     author:
+            first_name: 'Jose'
+            last_name: 'Aguirre-Garrido'
+            middle_initial: 'F'
+    -     author:
+            first_name: 'Luis'
+            last_name: 'Hernandez-Soto'
+            middle_initial: 'M'
+    -     author:
+            first_name: 'Francisco'
+            last_name: 'Martinez-Abarca'
+            middle_initial: ''
+#########################
+#########################
+
+
 # Una vez que se tienen esos archivos el comando queda.
 sudo ./pgap.py -D docker -v -r -o carpeta_de_salida input.yaml --cpus 4 --memory 200g --ignore-all-errors --no-internet --taxcheck
 
