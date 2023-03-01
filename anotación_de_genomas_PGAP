@@ -2,6 +2,8 @@
 # Prokka y PGAP (el del NCBI). Prokka es mucho más fácil de correr 
 
 #PGAP es un poco fastidioso porque hay que llenar los archivos submol.yaml e input.yaml. 
+# En febrero de 2023 hubo problemas con la actualización así que se implementó utilizando docker. Basado en:
+# https://biohpc.cornell.edu/lab/userguide.aspx?a=software&i=687
 
 #########################
 #########################
