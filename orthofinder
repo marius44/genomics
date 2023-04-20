@@ -2,3 +2,6 @@
 orthofinder -t 32 -a 32 -M msa -T fasttree -f .
 # -t threads
 # -a threads para ortho
+
+Luego los gráficos
+orthofinder_plots --tree Species_Tree/SpeciesTree_rooted.txt --orthogroups_tsv Orthogroups/Orthogroups.tsv --out ortho_roary_plots
