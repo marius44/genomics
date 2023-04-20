@@ -1,0 +1,4 @@
+#Se corre con faa (fastas de aminoacidos de prokka)
+orthofinder -t 32 -a 32 -M msa -T fasttree -f .
+# -t threads
+# -a threads para ortho
