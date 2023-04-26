@@ -1,0 +1,11 @@
+# Lo primero es activar el ambiente conda donde esta instalado:
+# Bien con: 
+conda activate automlst
+# o con 
+conda activate /home/user/miniconda3/envs/automlst
+
+
+python ~/automlst/automlst.py -ref ~/automlst/refseqreduced.db -bs 1000 -cat -c 10 . result_jul
+
+# EN NAUTILUS:
+# ~/Escritorio/mario/genomes_Isabel_WGS/pange_halomonas/prokka_Halo/mlst
