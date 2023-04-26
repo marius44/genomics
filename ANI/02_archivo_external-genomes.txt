@@ -1,0 +1,8 @@
+#Se debe hacer un archivo con los --external-genomes
+name    contigs_db_path
+Halomonas_aestuarii     /home/user/Escritorio/mario/genomes_Isabel_WGS/pange_halomonas/Halomonas_aestuarii.fasta.nts.fasta.contigs.db
+Halomonas_alkaliphila   /home/user/Escritorio/mario/genomes_Isabel_WGS/pange_halomonas/Halomonas_alkaliphila.fasta.nts.fasta.contigs.db
+
+anvi-gen-genomes-storage -e lista_pange_anvio.db.txt -o halomonas_PAN_GENOMES.db
+anvi-compute-genome-similarity --external-genomes external-genomes.txt --program pyANI --output-dir ANI --num-threads 38 --pan-db PROCHLORO/Prochlorococcus_Pan-PAN.db
+#https://merenlab.org/2016/11/08/pangenomics-v2/#computing-the-average-nucleotide-identity-for-genomes-and-other-genome-similarity-metrics-too
