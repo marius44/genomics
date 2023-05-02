@@ -1,0 +1,11 @@
+anvi-pan-genome -g halomonas_PAN_GENOMES.db --project-name "Halomonas_Pan" --output-dir HALO_MAYO --num-threads 40 --minbit 0.5 --mcl-inflation 10 --use-ncbi-blast
+
+anvi-compute-ani -e external-genomes.txt -o ANI -p HALO_MAYO/Halomonas_Pan-PAN.db -T 40
+
+anvi-get-sequences-for-gene-clusters -p HALO_MAYO/Halomonas_Pan-PAN.db -g halomonas_PAN_GENOMES.db --min-num-genomes-gene-cluster-occurs 24 --max-num-genes-from-each-genome 1 --concatenate-gene-clusters --output-file Halomonas-SCGs.fa
+
+trimal -in Halomonas-SCGs.fa -out Halomonas-SCGs-clean.fa -gt 0.50
+
+iqtree -s Halomonas-SCGs-clean.fa -nt 40 -m WAG --B 1000 --bnni
+
+
