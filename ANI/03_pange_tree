@@ -1,3 +1,5 @@
+# Esta última parte esta basada en https://merenlab.org/data/spiroplasma-pangenome/
+
 anvi-pan-genome -g halomonas_PAN_GENOMES.db --project-name "Halomonas_Pan" --output-dir HALO_MAYO --num-threads 40 --minbit 0.5 --mcl-inflation 10 --use-ncbi-blast
 
 anvi-compute-ani -e external-genomes.txt -o ANI -p HALO_MAYO/Halomonas_Pan-PAN.db -T 40
