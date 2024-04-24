@@ -1,15 +1,13 @@
 #!/bin/bash
 # Esto hace una lista con elementos especificos de una extensión
-# Activar el ambiente conda para anotar con Prokka
 
-#echo "activando prokka"
-#conda activate /home/user/miniconda3/envs/roary
-# Por ahora esta desactivado en el servidor Nautilus
+# activar el contenedor de prokka
+docker run staphb/prokka:latest prokka
 
 # Pedimos al usuario que ingrese el género de los organismos que va a anotar
-echo "Introduce el genero del organismo analizado: "
-read genero
-echo "El genero es: " $genero
+#echo "Introduce el genero del organismo analizado: "
+#read genero
+#echo "El genero es: " $genero
 
 # Esto hace una lista con elementos especificos de una extensión
 # Se alimenta de archivos en formato fasta
@@ -17,6 +15,7 @@ echo "Haciendo lista de genomas "
 ls *nts.fasta >> lista_genomas.txt
 # Si tienes *.nts.fasta de corrección de formato generado por anvio.
 # Corrección disponible en https://anvio.org/help/main/programs/anvi-script-reformat-fasta/
+# anvi-script-reformat-fasta Halomonas_salina_VN10_sedA.fasta -o Halomonas_salina_VN10_sedA.nts.fasta --min-len 1000 --seq-type NT --simplify-names --report-file Hsalina-report.txt
 # Esto es útil cuando Prokka tiene errores por nombres en los contigs
 #ls *nts.fasta >> lista_genomas.txt
 
@@ -25,7 +24,7 @@ ls *nts.fasta >> lista_genomas.txt
 # Sin comillas queda como input directamente para el comando.
 cat lista_genomas.txt | while read line;do
     echo "procesando " $line
-    prokka --outdir $genero --prefix "$line" --force --cpus 45 "$line"
+    docker run staphb/prokka:latest prokka --outdir $genero --prefix "$line" --force --cpus 45 "$line"
     echo "Listo, ya quedó anotado " $line
 done
 
