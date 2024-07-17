@@ -1,0 +1,7 @@
+conda activate gtdbtk_2.1.1
+
+gtdbtk classify_wf --genome_dir . --out_dir gtdbtk_conda/ --cpus 35 --force --prefix get_genome --pplacer_cpus 10 --skip_ani_screen --extension fasta
+# --pplacer_cpus 10 deben ser 10 para no saturar el sistema
+
+
+gtdbtk de_novo_wf --genome_dir . --outgroup_taxon p__Customphylum --bacteria --custom_taxonomy_file custom_taxonomy.tsv --out_dir gtdbtk_conda_de_novo/ --cpus 30 --extension fasta
