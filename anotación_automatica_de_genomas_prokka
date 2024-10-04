@@ -24,7 +24,7 @@ ls *nts.fasta >> lista_genomas.txt
 # Sin comillas queda como input directamente para el comando.
 cat lista_genomas.txt | while read line;do
     echo "procesando " $line
-    docker run staphb/prokka:latest prokka --outdir $genero --prefix "$line" --force --cpus 45 "$line"
+    #docker run staphb/prokka:latest prokka --outdir $genero --prefix "$line" --force --cpus 45 "$line"
     docker run --rm --cpus 15 -v /home/user/Descargas/Secuencias/abi_pseudomonas/ensamble_hibrido:/data staphb/prokka:latest prokka /data/assembly.fasta --outdir /data/docker_prokka --prefix pseudomonas --force --cpus 15
     echo "Listo, ya quedó anotado " $line
 done
