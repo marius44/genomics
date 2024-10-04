@@ -5,11 +5,12 @@
 echo "\e[4;97mIntroduce el genero del organismo analizado: \e[0m"
 read genero
 echo "El genero es: " $genero
+fasta_DIR=.
 
 # Esto hace una lista con elementos especificos de una extensión
 # Se alimenta de archivos en formato fasta
 echo "Haciendo lista de genomas "
-ls *nts.fasta >> lista_genomas.txt
+ls *.fasta >> lista_genomas.txt
 # Si tienes *.nts.fasta de corrección de formato generado por anvio.
 # Corrección disponible en https://anvio.org/help/main/programs/anvi-script-reformat-fasta/
 # anvi-script-reformat-fasta Halomonas_salina_VN10_sedA.fasta -o Halomonas_salina_VN10_sedA.nts.fasta --min-len 1000 --seq-type NT --simplify-names --report-file Hsalina-report.txt
@@ -23,7 +24,7 @@ cat lista_genomas.txt | while read line;do
     echo "procesando " $line
     #docker run staphb/prokka:latest prokka --outdir $genero --prefix "$line" --force --cpus 45 "$line"
     #docker run --rm --cpus 10 -v /RUTA_DE_SUS_ENSAMBLES:/data staphb/prokka:latest prokka /data/SU_ENSAMBLE.fasta --outdir /data/SU_RUTA_DE_SALIDA --prefix GENERO_DE_SU_BACTERIA --force --cpus 10
-    docker run --rm --cpus 10 -v /RUTA_DE_SUS_ENSAMBLES:/data staphb/prokka:latest prokka /data/"$line" --outdir /data/$genero --prefix "$line" --force --cpus 10
+    docker run --rm --cpus 10 -v $fasta_DIR:/data staphb/prokka:latest prokka /data/"$line" --outdir /data/$genero --prefix "$line" --force --cpus 10
     echo "Listo, ya quedó anotado " $line
 done
 
