@@ -34,14 +34,14 @@ echo "\e[4;97mSe anotaron todos sus genomas. No vuelva pronto\e[0m"
 rm lista_genomas.txt
 
 # Pedimos al usuario que ingrese el archivo para hacer metricas
-#echo "Introduce el archivo analizado: "
-#read archivo
+cd $genero
+
 echo "\e[4;97mSe calculan las metricas de: \e[0m" *.gbk
 
 # localizar ribosomales
 echo "Numero de ribosomales" >> metricas.txt
 # grep -c "S ribosomal RNA" *.gbk >> metricas.txt
-grep -E "S ribosomal RNA" pseudomonas.gbk | grep -v -E -c "note=\"aligned only" >> metricas.txt
+grep -E "S ribosomal RNA" *.gbk | grep -v -E -c "note=\"aligned only" >> metricas.txt
 
 echo "5S rRNA" >> metricas.txt
 grep -c "product=\"5S ribosomal RNA" *.gbk >> metricas.txt
@@ -64,7 +64,7 @@ grep -c "LOCUS" *.gbk >> metricas.txt
 echo " " >> metricas.txt
 
 # Metricas de ensamble
-echo "Calidad de ensamble" >> metricas.txt
-more ../quast/report.txt >> metricas.txt
+#echo "Calidad de ensamble" >> metricas.txt
+#more ../quast/report.txt >> metricas.txt
 
 echo "\e[4;97mHecho.\e[0m"
