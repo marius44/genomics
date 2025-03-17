@@ -1,0 +1,15 @@
+# Indexar el ensamblaje con Bowtie2
+bowtie2-build ensamblaje.fasta ensamblaje_index
+
+# Mapear las lecturas contra el ensamblaje
+bowtie2 -x ensamblaje_index -1 lecturas_R1.fastq -2 lecturas_R2.fastq -S mapeo.sam
+
+# Convertir SAM a BAM, ordenar e indexar
+samtools view -bS mapeo.sam | samtools sort -o mapeo.bam
+samtools index mapeo.bam
+
+# Calcular la cobertura promedio
+samtools depth mapeo.bam | awk '{sum+=$3} END {print "Cobertura promedio:", sum/NR}'
+
+# Obtener la distribución de cobertura (opcional)
+bedtools genomecov -ibam mapeo.bam -g ensamblaje.fasta > cobertura.txt
