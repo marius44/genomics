@@ -1,0 +1,5 @@
+# Se usa canu. En Nautilus ya esta instalado de manera que solo se invoca directamente
+canu -p <prefijo> -d <dir_salida> genomeSize=3m corThreads=20 -pacbio-raw *.fastq
+
+#Si el ensamblador muestra muchas secuencias cortas (<1000 bp), retirarlas con seqin
+  seqkit seq -g -m 1000 *.hifi_reads.fastq -o *.filtered.fastq
