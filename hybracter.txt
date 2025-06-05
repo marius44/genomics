@@ -1,5 +1,8 @@
 # Ensamble con hybracter (usa flye)
 # Recupera cromosoma y plasmido
+# depende de un archivo_input.csv sin header
+# Eg  
+# NG13,NG13_file.fastq
 docker run --rm -v /ruta/datos:/data -v /ruta/salida:/output quay.io/gbouras13/hybracter:0.11.0 hybracter long -i archivo_input.csv -o hybracter -t 3 --auto
 
 # Quast
