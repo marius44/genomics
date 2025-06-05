@@ -1,3 +1,12 @@
+# Ensamble con hybracter (usa flye)
+# Recupera cromosoma y plasmido
 docker run --rm -v /ruta/datos:/data -v /ruta/salida:/output quay.io/gbouras13/hybracter:0.11.0 hybracter long -i archivo_input.csv -o hybracter -t 3 --auto
 
+# Quast
+python /home/user/quast-5.2.0/quast.py archivo.fasta -o /directorio_salida/ -t 20 
 
+# Anotacion prokka 
+docker run --rm --cpus 10 -v /home/user/Descargas/secuencias/neisseria/NG13_complete:/data staphb/prokka:latest prokka NG13_chromosome.fasta --outdir anotacion --prefix neisseria_chromosome --force --cpus 10
+
+# Anotacion bakta
+bash /home/user/bakta-podman.sh --db /home/user/Escritorio/databases/bakta/ --output anotacio_bakta NG13_chromosome.fasta
