@@ -1,0 +1,3 @@
+docker run --rm -v /ruta/datos:/data -v /ruta/salida:/output quay.io/gbouras13/hybracter:0.11.0 hybracter long -i archivo_input.csv -o hybracter -t 3 --auto
+
+
