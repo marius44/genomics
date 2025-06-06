@@ -3,6 +3,8 @@
 # depende de un archivo_input.csv sin header
 # Eg  
 # NG13,NG13_file.fastq
+# Instructivo en https://hybracter.readthedocs.io/en/latest/input/#hybracter-long
+
 docker run --rm -v /ruta/datos:/data -v /ruta/salida:/output quay.io/gbouras13/hybracter:0.11.0 hybracter long -i archivo_input.csv -o hybracter -t 3 --auto
 
 # Quast
