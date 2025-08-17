@@ -9,7 +9,7 @@ fastqc -t 40 -o fastqc *.gz
 
 ls *.fastq.gz > adaptadores.txt
 cat adaptadores.txt | while read line; do
-    porechop_abi --ab_initio -i $line.fastq.gz -o $line.fastq
+    porechop_abi --ab_initio -i $line -o $line.fastq
 done    
 # Revisión de calidad
 fastqc -t 40 -o fastqc_porechop_abi *.fastq
