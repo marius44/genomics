@@ -1,6 +1,10 @@
 #!/bin/bash
 # Ensamble automatico de ONT
 
+# Lo primero es concatenar todos los fastq que se generaron por corrida
+# Eg.
+# cat barcode01/*.gz > ./barcode01.fastq.gz
+
 cat genomas.txt | while read line;do #GENOMAS.TXT ES UNA LISTA CON LAS CARPETAS DONDE ESTAN LAS LECTURAS
     echo "Entrando a " $line
     cd $line
