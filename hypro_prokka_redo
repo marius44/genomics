@@ -1,0 +1,2 @@
+# Hypro se usa si hay muchas proteinas hipoteticas
+nextflow run hoelzer-lab/hypro -r 0.0.4 -profile local,conda --fasta ./AB5.fna --database uniprotkb --output ./hypro_results --customdb ~/Escritorio/Fagos_prokka/nextflow-autodownload-databases/uniprotkb/uniprotkb.fasta
