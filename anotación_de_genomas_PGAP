@@ -55,7 +55,7 @@ authors:
 #########################
 #########################
 
-
+# En Nautilus la ruta es: /home/user/pgap_docker
 # Una vez que se tienen esos archivos el comando queda.
 sudo ./pgap.py -D docker -v -r -o carpeta_de_salida input.yaml --cpus 4 --memory 200g --ignore-all-errors --no-internet --taxcheck
 
