@@ -11,10 +11,10 @@
 # Ejemplo de input.yaml
 fasta:
   class: File
-  location: Hjan14_unicycler.fasta
+  path: /pgap/user_input/ARCHIVO.fasta
 submol:
   class: File
-  location: submol.yaml
+  path: /pgap/user_input/submol.yaml
   
 
 #########################
@@ -57,6 +57,10 @@ authors:
 
 # En Nautilus la ruta es: /home/user/pgap_docker
 # Una vez que se tienen esos archivos el comando queda.
+# Además, es recomendable cambiar el nombre de los contigs, porque a veces es muy largo
+seqkit replace -p '(.+)' -r 'scaffold_{nr}' scaffolds.fasta > scaffolds_short_names.fasta
+
+#Ahora sí, se corre
 sudo ./pgap.py -D docker -v -r -o carpeta_de_salida input.yaml --cpus 4 --memory 200g --ignore-all-errors --no-internet --taxcheck
 
 # --cpus = Número de procesadores (debe ser bajo 4 u 8 como máximo). Esto porque debe asignar más memoria a menos núcleos.
