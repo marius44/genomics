@@ -31,4 +31,10 @@ cat porechoped_genomas.txt | while read line;do #GENOMAS.TXT ES UNA LISTA CON LA
     echo "Ensamblando " $line
     canu -p $line -d assembly_canu_$line genomeSize=2.3m corThreads=20 -nanopore-raw $line.filtered.fastq.gz # ENSAMBLA CON LAS CORRECCIONES
 done
-done
+
+## Calidad de los ensambles con Quast
+python /home/user/quast-5.2.0/quast.py archivo.fasta -o /directorio_salida/ -t 20 
+
+## Anotacion prokka 
+docker run --rm --cpus 10 -v /ruta/donde/estan/los/fasta:/data staphb/prokka:latest prokka TU_ENSAMBLE.fasta --outdir anotacion --prefix PREFIJO_PARA_DIFERENCIAR_MUESTRAS --force --cpus 10
+
