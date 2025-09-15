@@ -1,7 +1,7 @@
 #!/bin/bash
 # Ensamble automatico de ONT
 
-# Lo primero es concatenar todos los fastq que se generaron por corrida
+# Concatenar todos los fastq que se generaron por corrida
 # Eg.
 # cat barcode01/*.gz > ./barcode01.fastq.gz
 mkdir fastqc
@@ -10,24 +10,37 @@ mkdir fastqc
 echo "Vamos a echale un ojo a la calidad"
 fastqc -t 44 -o fastqc *.gz
 
-## Creando lista para revisar adaptadores y cortarlos
-echo "Creando lista para revisar adaptadores y cortarlos"
-ls *.fastq.gz > adaptadores.txt
-echo "Cortando adaptadores"
-cat adaptadores.txt | while read line; do
-    porechop_abi -t 40 --ab_initio -i $line -o  ${line%.gz}.porechoped.fastq.gz
-done
+# Omito el uso de porechop_abi porque desde MinKNOW ya se recortaron los adaptadores
+
+#Trimming usando ProwlerTrimmer 
+# ONT da reads con calidades variables
+# Las variables en este programa van entre comillas.
+
+mkdir prowler_trim
+python ~/ProwlerTrimmer/TrimmerLarge.py   -f "NG36_gel.fastq"   -i "./"   -o "prowler_trim/"   -w 300   -l 500   -c "T"   -g "F0"   -m "D"   -q 4    -r ".fastq"
+
+# -f, 	--file,		filename:	The name of the file you want to trim, wihtout the folderpath"
+#-i, 	--infolder, 	inFolder:	The folderpath where your file to be trimmed is located (default = cwd)
+#-o, 	--outfolder,	outFolder:	The folderpath where your want to save the trimmed file (default = cwd)
+#-w, 	--windowsize,	windowSize:	Change the size of the trimming window (default= 100bp)
+#-l, 	--minlen,	minLen:		Change the minimum acceptable numer of bases in a read (default=100)
+#-m, 	--trimmode,	mode:		Select trimming algorithm: S for static  or D for dynamic (default=S)
+#-q, 	--qscore,	Qcutoff:	Select the phred quality score trimming threshold (default=7)
+#-d, 	--datamax,	maxDataMB:	Select a maximum data subsample in MB (default=0, entire file)
+#-r, 	--outformat,	outMode:	Select output format of trimmed file (fastq or fasta) (default=.fastq)
+#-c, 	--clip,		clipping:	Select L to clip leading Ns, T to trim trialing Ns and LT to trim both (default=LT)
+#-g, 	--fragments,	fragments:	Select fragmentation mode (default=U0)
+
 
 # Revisión de calidad
-mkdir fastqc_porechop_abi
-fastqc -t 40 -o fastqc_porechop_abi *porechoped.fastq.gz
+cd prowler_trim/
+fastqc -t 40 -o fastqc *.fastq
 
 # Creación de lista_genomas
-ls *porechoped.fastq.gz > porechoped_genomas.txt
+ls *porechoped.fastq > porechoped_genomas.txt
 
 cat porechoped_genomas.txt | while read line;do #GENOMAS.TXT ES UNA LISTA CON LAS CARPETAS DONDE ESTAN LAS LECTURAS
     echo "Puliendo " $line
-    seqkit seq -g -m 1000 $line -o $line.filtered.fastq.gz # QUITA READS MENORES A 1000 bp
     echo "Ensamblando " $line
     canu -p $line -d assembly_canu_$line genomeSize=2.3m corThreads=20 -nanopore-raw $line.filtered.fastq.gz # ENSAMBLA CON LAS CORRECCIONES
 done
