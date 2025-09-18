@@ -35,7 +35,7 @@ rm lista_genomas.txt
 
 # Pedimos al usuario que ingrese el archivo para hacer metricas
 cd $genero
-
+#### HAY QUE CAMBIAR PERMISOS DE LA CARPETA QUE GENERA; LO HACE POR DOCKER
 echo "\e[4;97mSe calculan las metricas de: \e[0m" *.gbk
 
 # localizar ribosomales
