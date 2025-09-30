@@ -5,7 +5,7 @@
 # NG13,NG13_file.fastq
 # Instructivo en https://hybracter.readthedocs.io/en/latest/input/#hybracter-long
 
-docker run --rm -v /ruta/datos:/data -v /ruta/salida:/output quay.io/gbouras13/hybracter:0.11.0 hybracter long -i archivo_input.csv -o hybracter -t 3 --auto
+docker run --rm -v /home/user/Descargas/secuencias/neisseria:/data -v /home/user/Descargas/secuencias/neisseria:/output quay.io/gbouras13/hybracter:0.11.2 hybracter long --input /data/NG8_input.csv --output /output/NG8_hybracter -t 3 --auto
 
 # Quast
 python /home/user/quast-5.2.0/quast.py archivo.fasta -o /directorio_salida/ -t 20 
