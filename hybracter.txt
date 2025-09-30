@@ -5,6 +5,11 @@
 # NG13,NG13_file.fastq
 # Instructivo en https://hybracter.readthedocs.io/en/latest/input/#hybracter-long
 
+#Las secuencias ONT pueden tener lecturas duplicadas, se eliminan
+seqkit rmdup -s NG30_gel.fastq -o NG30_gel_dedup.fastq
+#Y se aujsta el archivo input
+
+# Ensamble
 docker run --rm -v /home/user/Descargas/secuencias/neisseria:/data -v /home/user/Descargas/secuencias/neisseria:/output quay.io/gbouras13/hybracter:0.11.2 hybracter long --input /data/NG8_input.csv --output /output/NG8_hybracter -t 3 --auto
 
 # Quast
