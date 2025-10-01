@@ -48,6 +48,11 @@ done
 ## Calidad de los ensambles con Quast
 python /home/user/quast-5.2.0/quast.py archivo.fasta -o /directorio_salida/ -t 20 
 
+## Checar contaminacion con CheckM2
+micromamba activate checkm2
+checkm2
+checkm2 predict --threads 40 -x fasta --force --input . --output-directory checkm2/
+
 ## Anotacion prokka 
 docker run --rm --cpus 10 -v /ruta/donde/estan/los/fasta:/data staphb/prokka:latest prokka TU_ENSAMBLE.fasta --outdir anotacion --prefix PREFIJO_PARA_DIFERENCIAR_MUESTRAS --force --cpus 10
 
