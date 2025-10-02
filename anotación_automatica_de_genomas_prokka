@@ -1,3 +1,4 @@
+  GNU nano 4.8                                                                                                                                                              anotacion_automatica_de_genomas_prokka.sh                                                                                                                                                                          
 #!/bin/bash
 # Esto hace una lista con elementos especificos de una extensión
 
@@ -22,9 +23,7 @@ ls *.fasta >> lista_genomas.txt
 # Sin comillas queda como input directamente para el comando.
 cat lista_genomas.txt | while read line;do
     echo "procesando " $line
-    #docker run staphb/prokka:latest prokka --outdir $genero --prefix "$line" --force --cpus 45 "$line"
-    #docker run --rm --cpus 10 -v /RUTA_DE_SUS_ENSAMBLES:/data staphb/prokka:latest prokka /data/SU_ENSAMBLE.fasta --outdir /data/SU_RUTA_DE_SALIDA --prefix GENERO_DE_SU_BACTERIA --force --cpus 10
-    docker run --rm --cpus 10 -v $fasta_DIR:/data staphb/prokka:latest prokka /data/"$line" --outdir /data/$genero --prefix "$line" --force --cpus 10
+    docker run --rm -v $fasta_DIR:/data staphb/prokka:latest prokka /data/"$line" --outdir /data/$genero --prefix "$line" --force --cpus 40
     echo "Listo, ya quedó anotado " $line
 done
 
@@ -34,13 +33,14 @@ echo "\e[4;97mSe anotaron todos sus genomas. No vuelva pronto\e[0m"
 rm lista_genomas.txt
 
 # Pedimos al usuario que ingrese el archivo para hacer metricas
+chmod -R 777 $genero
 cd $genero
+
 #### HAY QUE CAMBIAR PERMISOS DE LA CARPETA QUE GENERA; LO HACE POR DOCKER
 echo "\e[4;97mSe calculan las metricas de: \e[0m" *.gbk
 
 # localizar ribosomales
 echo "Numero de ribosomales" >> metricas.txt
-# grep -c "S ribosomal RNA" *.gbk >> metricas.txt
 grep -E "S ribosomal RNA" *.gbk | grep -v -E -c "note=\"aligned only" >> metricas.txt
 
 echo "5S rRNA" >> metricas.txt
@@ -67,4 +67,6 @@ echo " " >> metricas.txt
 #echo "Calidad de ensamble" >> metricas.txt
 #more ../quast/report.txt >> metricas.txt
 
-echo "\e[4;97mHecho.\e[0m"
+echo "Hecho."
+
+
