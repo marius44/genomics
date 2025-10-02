@@ -1,9 +1,8 @@
-  GNU nano 4.8                                                                                                                                                              anotacion_automatica_de_genomas_prokka.sh                                                                                                                                                                          
 #!/bin/bash
 # Esto hace una lista con elementos especificos de una extensión
 
 # Pedimos al usuario que ingrese el género de los organismos que va a anotar
-echo "\e[4;97mIntroduce el genero del organismo analizado: \e[0m"
+echo "Introduce el genero del organismo analizado: "
 read genero
 echo "El genero es: " $genero
 fasta_DIR=.
@@ -27,7 +26,7 @@ cat lista_genomas.txt | while read line;do
     echo "Listo, ya quedó anotado " $line
 done
 
-echo "\e[4;97mSe anotaron todos sus genomas. No vuelva pronto\e[0m"
+echo "Se anotaron todos sus genomas."
 
 # Borrar la lista de genomas
 rm lista_genomas.txt
@@ -37,7 +36,7 @@ chmod -R 777 $genero
 cd $genero
 
 #### HAY QUE CAMBIAR PERMISOS DE LA CARPETA QUE GENERA; LO HACE POR DOCKER
-echo "\e[4;97mSe calculan las metricas de: \e[0m" *.gbk
+echo "Se calculan las metricas de: " *.gbk
 
 # localizar ribosomales
 echo "Numero de ribosomales" >> metricas.txt
@@ -68,5 +67,3 @@ echo " " >> metricas.txt
 #more ../quast/report.txt >> metricas.txt
 
 echo "Hecho."
-
-
