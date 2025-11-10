@@ -1,5 +1,0 @@
-# FiltLong/porechop/Ensamble
-# Hybracter
-docker run --rm -v /mnt/E704-594B/BIOINFORMATICS/Neisseria_4_nov_2025/fastq_pass:/data -v /mnt/E704-594B/BIOINFORMATICS/Neisseria_4_nov_2025/fastq_pass:/output \ 
-quay.io/gbouras13/hybracter:0.11.2 hybracter long --input /data/input_NG40.csv --output /output/NG40_hybracter -t 3 --auto
-
