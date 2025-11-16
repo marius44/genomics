@@ -9,7 +9,8 @@ ln -s /mnt/E704-594B/BIOINFORMATICS/Neisseria/Neisseria_nov_2025/barcode24_hybra
 quast *.fasta -o quast -t 5 --circos 
 
 # CheckM2
-/home/mario/checkm2/bin/checkm2 
+conda activate checkm2
+/home/mario/checkm2/bin/checkm2 predict --threads 4 -x fasta --force --input . --output-directory checkm2/
 
 # Anotacion
 prokka NG40_final.fasta --outdir anotacion_NG18 --prefix NG29_ --force --cpus 4
