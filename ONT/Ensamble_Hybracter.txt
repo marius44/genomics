@@ -4,6 +4,9 @@ docker run --rm -v /mnt/E704-594B/BIOINFORMATICS/Neisseria_4_nov_2025/fastq_pass
 quay.io/gbouras13/hybracter:0.11.2 hybracter long --input /data/input_NG40.csv --output /output/NG40_hybracter -t 3 --auto
 
 # Quast
+# Si es en mi Lenovo E495 se debe hacer enlances simbolicos al SDD porque Quast no funciona en mi HDD por el tipo de partición
+ln -s /mnt/E704-594B/BIOINFORMATICS/Neisseria/Neisseria_nov_2025/barcode24_hybracter/FINAL_OUTPUT/incomplete/barcode24_final.fasta /home/mario/Escritorio/Neisseria/neisseria_11_12_nov
+quast *.fasta -o quast -t 5 --circos 
 
 # CheckM2
 /home/mario/checkm2/bin/checkm2 
