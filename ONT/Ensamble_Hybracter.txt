@@ -1,3 +1,12 @@
+# Concatenar todos los fastq que se generaron por corrida
+# Eg.
+cat barcode01/*.gz > ./barcode01.fastq.gz
+mkdir fastqc
+
+# Revisión de calidad
+echo "Vamos a echale un ojo a la calidad"
+fastqc -t 44 -o fastqc *.gz
+
 # FiltLong/porechop/Ensamble
 # Hybracter
 docker run --rm -v /mnt/E704-594B/BIOINFORMATICS/Neisseria_4_nov_2025/fastq_pass:/data -v /mnt/E704-594B/BIOINFORMATICS/Neisseria_4_nov_2025/fastq_pass:/output \ 
