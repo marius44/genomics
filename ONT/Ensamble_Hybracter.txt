@@ -1,6 +1,6 @@
 # Concatenar todos los fastq que se generaron por corrida
 # Eg.
-cat barcode01/*.gz > ./barcode01.fastq.gz
+zcat barcode01/*.gz >> Nombre_muestra.fastq
 mkdir fastqc
 
 # Revisión de calidad
