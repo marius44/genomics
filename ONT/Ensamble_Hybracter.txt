@@ -9,15 +9,13 @@ fastqc -t 44 -o fastqc *.gz
 
 # FiltLong/porechop/Ensamble
 # Hybracter
-s_aureus_sample1,sample1_long_read.fastq.gz,2500000
-p_aeruginosa_sample2,sample2_long_read.fastq.gz,5500000
-s_aureus_sample1	sample1_long_read.fastq.gz	2500000
-p_aeruginosa_sample2	sample2_long_read.fastq.gz	5500000
-If you use --auto
-docker run --rm -v /mnt/E704-594B/BIOINFORMATICS/Neisseria_4_nov_2025/fastq_pass:/data -v /mnt/E704-594B/BIOINFORMATICS/Neisseria_4_nov_2025/fastq_pass:/output \ 
-quay.io/gbouras13/hybracter:0.11.2 hybracter long --input /data/input_NG40.csv --output /output/NG40_hybracter -t 3 --auto
+# Se debe hacer un archivo input_SU_MUESTRA.csv
+# Debe tener dos columnas separadas por comas. Serán el nombre de la muestra y el nombre del archivo fastq
+# E.g.
+s_aureus_sample1,sample1_long_read.fastq.gz
 
-
+mkdir SU_MUESTRA
+hybracter long --input SU_MUESTRA.csv --databases /data/databases/hybracter --output SU_MUESTRA_hybracter -t 30 --auto
 
 # Quast
 # Si es en mi Lenovo E495 se debe hacer enlances simbolicos al SDD porque Quast no funciona en mi HDD por el tipo de partición
