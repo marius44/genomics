@@ -1,4 +1,5 @@
-# Concatenar todos los fastq que se generaron por corrida
+# Pipeline para ensamblar un genoma con lecturas largas (ONT)
+## Concatenar todos los fastq que se generaron por corrida
 ## Eg.
 zcat barcode01/*.gz >> Nombre_muestra.fastq
 mkdir fastqc
