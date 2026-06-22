@@ -1,5 +1,5 @@
 # Pipeline para ensamblar un genoma con lecturas cortas (illumina)
-# Primero haremos un Analisis de calidad con AfterQC 
+## Primero haremos un Analisis de calidad con fastp 
 fastp     -i SU_MUESTRA_R1_001.fastq     -I SU_MUESTRA_R2_001.fastq     -o SU_MUESTRA_R1.clean.fastq.gz     -O SU_MUESTRA_R2.clean.fastq.gz     --detect_adapter_for_pe     --correction     --trim_poly_g     --html fastp.html     --json fastp.json     -w 16
 
 ## Ensamble con unicycler/spades
@@ -8,12 +8,12 @@ unicycler -1 SU_MUESTRA_R1.clean.fastq.gz -2 SU_MUESTRA_R2.clean.fastq.gz -o out
 ## Quast
 quast.py *.fasta -o quast -t 5 --circos 
 
-# CheckM2
+## CheckM2
 conda activate checkm2
 checkm2 predict --threads 4 -x fasta --force --input . --output-directory checkm2/
 
-# Anotacion
-## Activar el entorno conda de prokka
+## Anotacion
+### Activar el entorno conda de prokka
 conda activate prokka
 prokka NG40_final.fasta --outdir anotacion_NG18 --prefix NG29_ --force --cpus 4
 
