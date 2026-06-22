@@ -1,3 +1,21 @@
+# Pipeline para ensamblar un genoma con lecturas cortas (illumina)
+# Primero haremos un Analisis de calidad con AfterQC 
+pypy /home/user/AfterQC/after.py -1 R1.fastq -2 R2.fastq (-d dir ) -f -1 -t -1
+### -d permite colocar la carpeta con todos los fastq que querramos analizar sin tener que hacer una lista o hacerlo uno por uno
+
+## Ensamble con unicycler/spades
+unicycler -1 R1.fastq -2 R2.fq -o out_folder --spades_path /home/user/SPAdes-3.15.4-Linux/bin/spades.py -t 15 --keep 3 --verbosity 2 
+
+## Calidad de los ensambles con Quast
+python /home/user/quast-5.2.0/quast.py archivo.fasta -o /directorio_salida/ -t 20 
+
+## Anotacion prokka 
+docker run --rm --cpus 10 -v /ruta/donde/estan/los/fasta:/data staphb/prokka:latest prokka TU_ENSAMBLE.fasta --outdir anotacion --prefix PREFIJO_PARA_DIFERENCIAR_MUESTRAS --force --cpus 10
+
+## Anotacion bakta
+bash /home/user/bakta-podman.sh --db /home/user/Escritorio/databases/bakta/ --output anotacio_bakta TU_ENSAMBLE.fasta
+
+
 # Pipeline para ensamblar un genoma con lecturas largas (ONT)
 ## Concatenar todos los fastq que se generaron por corrida
 ## Eg.
