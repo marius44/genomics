@@ -6,9 +6,14 @@ fastp     -i SU_MUESTRA_R1_001.fastq     -I SU_MUESTRA_R2_001.fastq     -o SU_MU
 unicycler -1 SU_MUESTRA_R1.clean.fastq.gz -2 SU_MUESTRA_R2.clean.fastq.gz -o out_SU_MUESTRA -t 15 --keep 3 --verbosity 2 
 
 ## Quast
+## Activar el ambiente conda
+conda activate quast
 quast.py *.fasta -o quast -t 10 --circos 
 
 ## CheckM2
+## Activar el ambiente conda
+conda activate checkm2
+## Correr checkm2
 checkm2 predict --threads 10 -x fasta --force --input . --output-directory checkm2/
 
 ## Anotacion
