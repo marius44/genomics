@@ -3,7 +3,7 @@
 fastp     -i SU_MUESTRA_R1_001.fastq     -I SU_MUESTRA_R2_001.fastq     -o SU_MUESTRA_R1.clean.fastq.gz     -O SU_MUESTRA_R2.clean.fastq.gz     --detect_adapter_for_pe     --correction     --trim_poly_g     --html fastp.html     --json fastp.json     -w 16
 
 ## Ensamble con unicycler/spades
-unicycler -1 R1.fastq -2 R2.fq -o out_folder --spades_path /home/user/SPAdes-3.15.4-Linux/bin/spades.py -t 15 --keep 3 --verbosity 2 
+unicycler -1 SU_MUESTRA_R1.clean.fastq.gz -2 SU_MUESTRA_R2.clean.fastq.gz -o out_SU_MUESTRA -t 15 --keep 3 --verbosity 2 
 
 ## Quast
 quast.py *.fasta -o quast -t 5 --circos 
