@@ -9,7 +9,6 @@ unicycler -1 SU_MUESTRA_R1.clean.fastq.gz -2 SU_MUESTRA_R2.clean.fastq.gz -o out
 quast.py *.fasta -o quast -t 10 --circos 
 
 ## CheckM2
-conda activate checkm2
 checkm2 predict --threads 10 -x fasta --force --input . --output-directory checkm2/
 
 ## Anotacion
