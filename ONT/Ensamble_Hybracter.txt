@@ -24,15 +24,16 @@ conda activate hybracter
 hybracter long --input SU_MUESTRA.csv --databases /data/databases/hybracter --output SU_MUESTRA_hybracter -t 30 --auto
 
 # Quast
-# Si es en mi Lenovo E495 se debe hacer enlances simbolicos al SDD porque Quast no funciona en mi HDD por el tipo de partición
-ln -s /mnt/E704-594B/BIOINFORMATICS/Neisseria/Neisseria_nov_2025/barcode24_hybracter/FINAL_OUTPUT/incomplete/barcode24_final.fasta /home/mario/Escritorio/Neisseria/neisseria_11_12_nov
-quast *.fasta -o quast -t 5 --circos 
+
+quast.py *.fasta -o quast -t 5 --circos 
 
 # CheckM2
 conda activate checkm2
-/home/mario/checkm2/bin/checkm2 predict --threads 4 -x fasta --force --input . --output-directory checkm2/
+checkm2 predict --threads 4 -x fasta --force --input . --output-directory checkm2/
 
 # Anotacion
+# Activar el entorno conda de prokka
+conda activate prokka
 prokka NG40_final.fasta --outdir anotacion_NG18 --prefix NG29_ --force --cpus 4
 
 # Hypro anotacion extra
