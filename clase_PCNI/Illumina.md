@@ -8,6 +8,7 @@ unicycler -1 SU_MUESTRA_R1.clean.fastq.gz -2 SU_MUESTRA_R2.clean.fastq.gz -o out
 ## Quast
 ## Activar el ambiente conda
 conda activate quast
+
 quast.py *.fasta -o quast -t 10 --circos 
 
 ## CheckM2
