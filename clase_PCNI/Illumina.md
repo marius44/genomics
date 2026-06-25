@@ -12,14 +12,19 @@ unicycler -1 SU_MUESTRA_R1.clean.fastq.gz -2 SU_MUESTRA_R2.clean.fastq.gz -o out
 ### Activar el ambiente conda
 conda activate quast
 
+### Correr Quast
 quast.py *.fasta -o quast -t 10 --circos 
+
+conda deactivate
 
 ## Otros parámetros de calidad se analizan con CheckM2
 ### Activar el ambiente conda
 conda activate checkm2
 
-## Correr checkm2
+### Correr checkm2
 checkm2 predict --threads 10 -x fasta --force --input . --output-directory checkm2/
+
+conda deactivate
 
 ## Anotacion
 ### Activar el entorno conda de prokka
