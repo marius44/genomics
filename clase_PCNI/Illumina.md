@@ -1,5 +1,7 @@
 # Pipeline para ensamblar un genoma con lecturas cortas (illumina)
-## Primero haremos un Analisis de calidad con fastp 
+## Primero haremos un Analisis de calidad con fastqc
+fastqc -t 40 -o output_fastqc
+fastp 
 fastp     -i SU_MUESTRA_R1_001.fastq     -I SU_MUESTRA_R2_001.fastq     -o SU_MUESTRA_R1.clean.fastq.gz     -O SU_MUESTRA_R2.clean.fastq.gz     --detect_adapter_for_pe     --correction     --trim_poly_g     --html fastp.html     --json fastp.json     -w 16
 
 ## Ensamble con unicycler/spades
