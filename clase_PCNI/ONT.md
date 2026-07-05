@@ -1,4 +1,7 @@
 # Revisión de calidad
+
+mkdir fastqc
+
 fastqc -t 44 -o fastqc *.fastq
 
 # Hybracter (FiltLong/porechop/Ensamble)
