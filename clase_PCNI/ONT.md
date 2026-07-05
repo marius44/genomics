@@ -1,4 +1,4 @@
-<img width="640" height="640" alt="image" src="https://github.com/user-attachments/assets/b662dd5c-a4a5-4d37-9a39-f306e95b7453" /># Pipeline para ensamblar un genoma con lecturas largas (ONT)
+
 
 # Revisión de calidad
 fastqc -t 44 -o fastqc *.gz
