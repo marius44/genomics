@@ -1,17 +1,12 @@
 # Pipeline para ensamblar un genoma con lecturas largas (ONT)
-## Concatenar todos los fastq que se generaron por corrida
-## Eg.
-zcat barcode01/*.gz >> Nombre_muestra.fastq
-mkdir fastqc
 
 # Revisión de calidad
 fastqc -t 44 -o fastqc *.gz
 
-
 # Hybracter (FiltLong/porechop/Ensamble)
 ## Se debe hacer un archivo input_SU_MUESTRA.csv
 ## Debe tener dos columnas separadas por comas. Serán el nombre de la muestra y el nombre del archivo fastq
-## E.g.
+## Ejemplo
 s_aureus_sample1,sample1_long_read.fastq.gz
 
 # Crear una carpeta con el nombre del genoma que será ensamblado
