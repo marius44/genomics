@@ -1,10 +1,10 @@
-# Pipeline para ensamblar un genoma con lecturas largas (ONT)
+<img width="640" height="640" alt="image" src="https://github.com/user-attachments/assets/b662dd5c-a4a5-4d37-9a39-f306e95b7453" /># Pipeline para ensamblar un genoma con lecturas largas (ONT)
 
 # Revisión de calidad
 fastqc -t 44 -o fastqc *.gz
 
 # Hybracter (FiltLong/porechop/Ensamble)
-## Se debe hacer un archivo input_SU_MUESTRA.csv
+## Se debe hacer un archivo input_SU_MUESTRA.csv (Use el comando nano)
 ## Debe tener dos columnas separadas por comas. Serán el nombre de la muestra y el nombre del archivo fastq
 ## Ejemplo
 s_aureus_sample1,sample1_long_read.fastq.gz
@@ -17,14 +17,15 @@ conda activate hybracter
 
 # Se coloca el comando para ensamblar con hybracter
 hybracter long --input SU_MUESTRA.csv --databases /data/databases/hybracter --output SU_MUESTRA_hybracter -t 30 --auto
-
+conda deactivate
 # Quast
+conda activate quast
 quast.py *.fasta -o quast -t 5 --circos 
-
+conda deactivate 
 # CheckM2
 conda activate checkm2
 checkm2 predict --threads 4 -x fasta --force --input . --output-directory checkm2/
-
+conda deactivate 
 # Anotacion
 ## Activar el entorno conda de prokka
 conda activate prokka
