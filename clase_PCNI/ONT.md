@@ -1,5 +1,5 @@
 # Revisión de calidad
-fastqc -t 44 -o fastqc *.gz
+fastqc -t 44 -o fastqc *.fastq
 
 # Hybracter (FiltLong/porechop/Ensamble)
 ## Se debe hacer un archivo input_SU_MUESTRA.csv (Use el comando nano)
@@ -8,7 +8,7 @@ nano input_SU_MUESTRA.csv
 
 ## Debe tener dos columnas separadas por comas. Serán el nombre de la muestra y el nombre del archivo fastq
 ## Ejemplo
-s_aureus_sample1,sample1_long_read.fastq.gz
+s_aureus_sample1,sample1_long_read.fastq
 
 ## Recuerde que debe guardar los cambios con la combinación de teclas "Ctrl + o" y cerrar con "Ctrl + x"
 
