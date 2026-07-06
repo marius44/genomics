@@ -1,4 +1,7 @@
 # Hybracter (FiltLong/porechop/Ensamble)
+
+## Para este ensamble usaremos los archivos con secuencias cortas y ya limpias de Illumina (clean) y el archivo con secuencias largas. Copielos a su carpeta
+
 ## Se debe hacer un archivo input_SU_MUESTRA.csv (Use el comando nano)
 
 nano input_SU_MUESTRA.csv
