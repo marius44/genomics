@@ -31,6 +31,7 @@ conda deactivate
 conda activate quast
 
 cd FINAL_OUTPUT/incomplete/
+
 quast.py *.fasta -o quast -t 5 --circos 
 
 conda deactivate 
