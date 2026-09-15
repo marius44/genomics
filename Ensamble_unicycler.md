@@ -1,6 +1,7 @@
 # Ensamble de genomas de secuencias pareadas (Illumina)
 ## Primero haremos un Analisis de calidad con Fastp 
 fastp -1 R1.fastq -2 R2.fastq (-d dir ) -f -1 -t -1
+
 #-d permite colocar la carpeta con todos los fastq que querramos analizar sin tener que hacer una lista o hacerlo uno por uno
 
 ## Ensamble con unicycler/spades
