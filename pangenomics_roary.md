@@ -1,18 +1,20 @@
-# De momento es con roary
+# Roary
 
 conda activate roary
 
-# Todos los archivos  comparar denen de estar en formato gff3
+## Todos los archivos  comparar denen de estar en formato gff3
 roary -f folder_output -r -e -n -v -g 5000000 --mafft -p 23 *.gff
 
-# arbol
+## arbol
 iqtree -s core_gene_alignment.aln -m MFP -nt 23 -mtree -bb 1000 -bnni
-# FastTree –nt –gtr core_gene_alignment.aln > my_tree.newick
 
-# arbol 
+## Alternativamente con 
+#FastTree –nt –gtr core_gene_alignment.aln > my_tree.newick
+
+# arbol para pangenoma
 python roary_plots.py core_gene_alignment.aln.treefile gene_presence_absence.csv
 
-#Correrlo en RStudio comentando la parte del ggsave
+# Correrlo en RStudio comentando la parte del ggsave
 create_pan_genome_plots.R 
 
 # sacar genes 
