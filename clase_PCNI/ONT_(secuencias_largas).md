@@ -83,6 +83,7 @@ conda activate prokka
 Se entra a la carpeta en donde esta cada ensamble en formato fasta y se corre (en el grupo tenemos un script automático para la anotación solicitarlo si son muchos genomas):
 ```bash
 prokka NG40_final.fasta --outdir anotacion_NG18 --prefix NG29_ --force --cpus 4
+```
 
 Al finalizar el análisis de todos los ensambles se desactiva el entorno
 
