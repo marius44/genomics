@@ -63,8 +63,12 @@ Se hace con CheckM2
 ```bash
 conda activate checkm2
 ```
+
+Entrar a la carpeta correspondiente de cada ensamble y usar el ensamble en formato fasta
+
 ```bash
 checkm2 predict --threads 4 -x fasta --force --input . --output-directory checkm2/
+```
 
 Al finalizar el análisis de todos los ensambles se desactiva el entorno
 
