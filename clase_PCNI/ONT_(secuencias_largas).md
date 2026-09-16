@@ -58,7 +58,7 @@ Al finalizar el análisis de todos los ensambles se desactiva el entorno
 ```bash
 conda deactivate 
 ```
-# Analisis de completitud del ensamble
+# Análisis de completitud del ensamble
 Se hace con CheckM2
 ```bash
 conda activate checkm2
@@ -75,7 +75,7 @@ Al finalizar el análisis de todos los ensambles se desactiva el entorno
 ```bash
 conda deactivate 
 ```
-# Anotacion
+# Anotación
 Se debe activar el entorno conda de prokka
 ```bash
 conda activate prokka
