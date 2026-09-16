@@ -3,9 +3,17 @@ Se hace una carpeta para colocar los resultados y se corre el programa
 ```bash
 mkdir fastqc
 ```
-
+Se corre fastqc
+```bash
 fastqc -t 24 -o fastqc *.fastq
 ```
+
+Al finalizar, entrar a la carpeta fastqc y revisar manualmente cada métrica de calidad. Complementariamente se puede condensar toda la información con multiqc. Para hacerlo en la carpeta fastqc correr
+
+```bash
+multiqc .
+```
+
 ## Ensamble con Hybracter.
 Integra remoción de lecturas cortas (FiltLong), corte de adaptadores (porechop) y ensamble (flye). Se debe hacer un archivo input_SU_MUESTRA.csv (Use el comando nano)
 ```bash
