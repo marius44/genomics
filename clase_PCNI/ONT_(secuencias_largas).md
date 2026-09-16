@@ -51,7 +51,7 @@ Se entra a la carpeta de cada ensamble generado
 cd SU_MUESTRA/FINAL_OUTPUT/incomplete/
 ```
 ```bash
-quast.py *.fasta -o quast -t 5 --circos 
+quast.py *.fasta -o quast -t 20 --circos 
 ```
 Al finalizar el análisis de todos los ensambles se desactiva el entorno
 
@@ -82,7 +82,7 @@ conda activate prokka
 ```
 Se entra a la carpeta en donde esta cada ensamble en formato fasta y se corre (en el grupo tenemos un script automático para la anotación solicitarlo si son muchos genomas):
 ```bash
-prokka NG40_final.fasta --outdir anotacion_NG18 --prefix NG29_ --force --cpus 4
+prokka NG40_final.fasta --outdir anotacion_NG18 --prefix NG29_ --force --cpus 20
 ```
 
 Al finalizar el análisis de todos los ensambles se desactiva el entorno
