@@ -1,0 +1,298 @@
+PIPELINE_ANÁLISIS DE GENOMAS FUNGICOS
+CARGAR O DESCARGAR ARCHIVOS DE WINDOWS A SERVIDOR. 
+A) CARGAR ARCHIVOS DESDE WINDOWS A SERVIDOR. 
+Usando windows: 
+1.
+PS C:\Users\darka\Downloads> scp -P 3625 'C:\Users\darka\Downloads\Galaxy1-[nuclear_only_CLD.fasta] (1).fasta' mquinones@148.206.12.7://home/mquinones/ENSAM_FILTRADOS
+Captura_de_pantalla_2026-02-23_184804.png
+
+Comando para subir todo un conjunto de archivos con el mismo formato, por ejemplo .fasta: 
+1.
+PS C:\Users\darka\Downloads> scp -P 3625 'C:\Users\darka\Downloads\GENIRPX\*.fasta' mquinones@148.206.12.7://home/mquinones/filogenomica/IRPX
+Captura_de_pantalla_2026-02-24_193709.png
+
+B) LA DESCARGA DE ARCHIVOS SE REALIZA EN LA TERMINAL DEL SERVIDOR LOCAL, ESCRIBIENDO EL SIGUIENTE COMANDO:. 
+NOTA: ES IMPORTANTE CONOCER LA RUTA DEL SERVIDOR REMOTO Y LOCAL (EMPLEANDO EL COMANDO pwd)
+1.
+scp [ -P puerto usuario@IP del servidor: <RUTA DONDE ESTAN LOS ARCHIVOS DEL SERVIDOR REMOTO (NAUTILUS)/ ARCHIVO QUE SE QUIERE DESCARGAR/ RUTA DE LA CARPETA DESTINO EN EL SERVIDOR LOCAL (MAC-COMPU PERSONAL)
+EJEMPLO: 
+1.
+scp -P 3625 mquinones@148.206.12.7:/home/mquinones/secuencias/HernandezSotoFungalWGS.zip /Users/monicaquinones/Desktop/MONICA
+2. /home/mquinones/anicluster/DESCOMP_PENICILLIUM/Pcamenberti.fasta /Users/monicaquinones/Desktop/MONI/PENISILLIUM/PEN_GENO
+EJEMPLO DESCARGA DE ARCHIVO DESDE SERVIDOR LOCAL
+
+USANDO WINDOWS: 
+PS C:\> scp -P 3625 mquinones@148.206.12.7:/home/mquinones/ensambles/Cld_S87_L001_R1_001.fastq C:\Users\darka\Downloads\ENS_2026\
+image.png
+
+I. DESCOMPRIMIR ARCHIVOS GENÓMICOS (ILUMINA)
+PREPARACIÓN DE LAS SECUENCIAS: 
+1.
+CREAR UNA SESIÓN EN "SCREEN": 
+ mquinones@nautilus:~$ screen - S < nombre de como llamaras a la sesión >
+al dar enter, se abre una pantalla nueva: 
+mquinones@nautilus:~$
+2. Abrir la carpeta donde se encuentran los archivos comprimidos, como se muestra en la imagen, el archivo en rojo. 
+Captura de Pantalla 2025-08-13 a la(s) 14.06.00.png
+
+3. Descomprimir el archivo, con base en la tabla y al tipo de compresor (Zip)
+Captura_de_Pantalla_2025-11-14_a_las_15.56.51.png
+
+II. ANÁLISIS DE CALIDAD DEL GENOMA 
+Pipeline para ensamblar un genoma con lecturas cortas (illumina)
+En este pipeline corto se explica como se realiza el control de calidad de secuencias cortas (Illumina), el ensamble, control de calidad de los ensambles y anotación. En los comandos, las entradas dicen "SU_MUESTRA", esto debe ser cambiado por el nombre de lo que este analizando.
+Se hace el recorte y control de calidad con fastp para generar los archivos clean con los que alimentaremos al ensamblador
+ACTIVAR FASTP: 
+mquinones@nautilus:~$ fastp
+1.
+El color rojo representa tus inputs (-i), es decir tus archivos de entrada 
+2.
+El color azul representa tus outputs (-o),  es decir que aqui colocaras el nombre de tu muestra. 
+TUS INPUTS SE VERAN ASI: 
+-rw-rw-r-- 1 mquinones mquinones   27G abr 17 18:22 H2PM_CKDN250025654-1A_2323JGLT4_L4_1.fq
+-rw-rw-r-- 1 mquinones mquinones   27G abr 17 18:26 H2PM_CKDN250025654-1A_2323JGLT4_L4_2.fq
+Al activar fastp, colocar lo siguiente: I I
+COMANDO: 
+fastp -i SU_MUESTRA_R1_001.fastq -I SU_MUESTRA_R2_001.fastq -o SU_MUESTRA_R1.clean.fastq.gz -O SU_MUESTRA_R2.clean.fastq.gz --detect_adapter_for_pe --correction --trim_poly_g --html fastp.html --json fastp.json -w 16
+TUS OUTPUTS SE VERÁN ASI: 
+-rw-r--r-- 1 mquinones mquinones 4,4G ago  4 11:46 H2PM_R1.clean.fastq.gz
+-rw-r--r-- 1 mquinones mquinones 4,5G ago  4 11:46 H2PM_R2.clean.fastq.gz
+III. ENSAMBLE DEL GENOMA UNICYCLER/SPADES. 
+ACTIVAR unicycler: 
+mquinones@nautilus:~$ unicycler
+Al activar unicycler, colocar lo siguiente: 
+TUS INPUTS SERÁN ESTOS: 
+-rw-r--r-- 1 mquinones mquinones 4,4G ago  4 11:46 H2PM_R1.clean.fastq.gz
+-rw-r--r-- 1 mquinones mquinones 4,5G ago  4 11:46 H2PM_R2.clean.fastq.gz
+COMANDO: 
+unicycler -1 SU_MUESTRA_R1.clean.fastq.gz -2 SU_MUESTRA_R2.clean.fastq.gz -o out_SU_MUESTRA -t 15 --keep 3 --verbosity 2
+TUS OUTPUTS SERÁN ESTOS:
+-rw-rw-r-- 1 mquinones mquinones  43M ago  6 15:57 001_spades_graph_k027.gfa
+-rw-rw-r-- 1 mquinones mquinones  41M ago  6 17:45 001_spades_graph_k053.gfa
+-rw-rw-r-- 1 mquinones mquinones  41M ago  6 19:08 001_spades_graph_k071.gfa
+-rw-rw-r-- 1 mquinones mquinones  41M ago  6 20:42 001_spades_graph_k087.gfa
+-rw-rw-r-- 1 mquinones mquinones  41M ago  6 21:58 001_spades_graph_k099.gfa
+-rw-rw-r-- 1 mquinones mquinones  41M ago  6 23:02 001_spades_graph_k111.gfa
+-rw-rw-r-- 1 mquinones mquinones  41M ago  6 23:54 001_spades_graph_k119.gfa
+-rw-rw-r-- 1 mquinones mquinones  40M ago  7 00:36 001_spades_graph_k127.gfa
+-rw-rw-r-- 1 mquinones mquinones  35M ago  7 00:37 002_depth_filter.gfa
+-rw-rw-r-- 1 mquinones mquinones  35M ago  7 00:38 003_overlaps_removed.gfa
+-rw-rw-r-- 1 mquinones mquinones  35M ago  7 00:38 004_bridges_applied.gfa
+-rw-rw-r-- 1 mquinones mquinones  35M ago  7 00:38 005_final_clean.gfa
+-rw-rw-r-- 1 mquinones mquinones  35M ago  7 00:38 assembly.gfa
+-rw-rw-r-- 1 mquinones mquinones 913K ago  7 00:38 unicycler.log
+EL OUTPUT QUE REPRESENTA EL ENSAMBLE DEL GENOMA ES ESTE: 
+-rw-rw-r-- 1 mquinones mquinones  35M ago  7 00:38 assembly.fasta
+IV. ANÁLISIS DE CALIDAD DEL ENSAMBLE: QUAST Y BUSCO. 
+●
+QUAST
+Los dos programas son útiles para conocer la calidad del ensamble y entre más análisis de calidad, mejor soporte para el ensamble. El primer análisis que se hará es con QUAST: 
+El control de calidad del ensamble se hace con Quast. 
+Corre en un ambiente conda
+Activar el ambiente conda
+conda activate quast
+Al activar quast, colocar lo siguiente: 
+TUS INPUTS SERÁ ESTE: 
+rw-rw-r-- 1 mquinones mquinones 35M ago 7 00:38 assembly.fasta
+EL COMANDO A USAR SERÁ: 
+quast.py *.fasta -o quast -t 10 --circos
+TU OUTPUT SERÁN ESTOS:
+drwxrwxr-x 2 mquinones mquinones 4,0K ago 10 18:45 basic_stats
+-rw-rw-r-- 1 mquinones mquinones 1010 ago 10 18:45 report.txt
+-rw-rw-r-- 1 mquinones mquinones  532 ago 10 18:45 report.tsv
+-rw-rw-r-- 1 mquinones mquinones 1,2K ago 10 18:45 report.tex
+-rw-rw-r-- 1 mquinones mquinones  997 ago 10 18:45 transposed_report.txt
+-rw-rw-r-- 1 mquinones mquinones  532 ago 10 18:45 transposed_report.tsv
+-rw-rw-r-- 1 mquinones mquinones 1,1K ago 10 18:45 transposed_report.tex
+-rw-rw-r-- 1 mquinones mquinones  29K ago 10 18:45 report.pdf
+drwxrwxr-x 2 mquinones mquinones 4,0K ago 10 18:45 icarus_viewers
+-rw-rw-r-- 1 mquinones mquinones  53K ago 10 18:45 icarus.html
+-rw-rw-r-- 1 mquinones mquinones 376K ago 10 18:45 report.html
+-rw-rw-r-- 1 mquinones mquinones 2,6K ago 10 18:45 quast.log 
+El reporte sobre el análisis de calidad se puede visualizar en el archivo: 
+-rw-rw-r-- 1 mquinones mquinones 29K ago 10 18:45 report.pdf
+Screenshot_2026-08-20_125438.png
+
+POSTERIORMENTE 
+conda deactivate
+●
+ANÁLISIS DE CALIDAD CON BUSCO 
+Comando para el análisis de calidad del ensamble en BUSCO: 
+Ejemplo: busco -i <sitio donde se encuentra el ensable de la secuuecia>/ el archivo debe estar en formato: genome.fasta -l < aquí se coloca el dataset del linaje adecuado,, puede ser: auto o bien checar los comandos en la parte inferior y elegir el que se adecue a tu ensamble -o busco_<archivo_nombre> -m genome --cpu 8 -f --config /home/mquinones/conf
+COMANDOS: 
+-i: archivo en formato fasta
+-l: dataset. Es opcional pues automaticamente busca el linaje adecuado. Si gustas hacerlo con un dataset específico, elegir fungi_odb10, ascomycota_odb10
+-o: nombre del archivo de salida
+-m : tipo de datos (genome, transcriptome, proteins).
+--cpu: número de núcleos
+ACTIVAR BUSCO: 
+	mquinones@nautilus:~$ conda activate busco
+Al activarlo, deberas usar el siguiente comando: 
+busco -i /home/mquinones/ENSAMB/H2PM_ENSAMB/assembly.fasta -l fungi_odb10 -o busco_IRPEX -m genome --cpu 8 -f --config /home/mquinones/conf
+Outputs:
+drwxrwxr-x 2 mquinones mquinones 4,0K ago 20 13:11 tmp
+-rw-rw-r-- 1 mquinones mquinones  938 ago 20 13:28 short_summary.specific.fungi_odb10.H2PM_busco.txt
+-rw-rw-r-- 1 mquinones mquinones 2,9K ago 20 13:28 short_summary.specific.fungi_odb10.H2PM_busco.json
+drwxrwxr-x 6 mquinones mquinones 4,0K ago 20 13:28 run_fungi_odb10
+drwxrwxr-x 2 mquinones mquinones 4,0K ago 20 13:28 logs
+Interpretación:
+-C >90%: El ensamble es de calidad
+-D >5%: Posible contaminación, duplicados, poliploidía
+F/M: >5%: Anotación y ensamble incompleto.
+Screenshot_2026-08-20_133726.png
+
+I. REMOVER SECUENCIAS MENORES A 200 pb: 
+El primer filtro para remover sequencias menores o igual a 200 pb se realizara con seqtk. 
+1.
+Activar el programa:  (base) mquinones@nautilus:~$ seqtk
+Al activar seqtk, colocar lo siguiente:  
+a) TU INPUT SERÁ ESTE: "assembly.fasta"
+El comando debe correrse en la carpeta, por ejemplo: mquinones@nautilus:~/secuencias/C7/C7II$ en donde se encuentra el "assembly.fasta", es decir: 
+EL COMANDO QUE SE USARA ES: 
+seqtk seq -L 200 input.fasta > output_filtered.fasta
+Donde "L" te determina el número de pb a remover
+ejemplo: 
+mquinones@nautilus:~/secuencias/C7/C7II$ seqtk seq -L 200 assembly.fasta > output_irpexfiltered.fasta
+TU OUTPUT SERÁ ESTE: 
+output_irpexfiltrado.fasta
+I.I. CÓMO SABER SI SE FILTRÓ LAS SEQ MENOR O IGUAL A 200 PB 
+1.
+Activar el programa:  (base) mquinones@nautilus:~$ seqkit
+Al activar seqkit, colocar lo siguiente:  
+a) TU INPUT SERÁ ESTE: "output_irpexfiltrado.fasta"
+EL COMANDO QUE SE USARA ES:
+seqkit stats assembly_.fasta output_asperH1_filtered.fasta
+Este comando te permitira identificar si se realizo un filtrado al determinar un cambio en el no. de sequencias, como se muestra en la tabla que te genera el programa: 
+Screenshot_2026-09-04_144525.png
+
+IV. FILTRADO DE SECUENCIAS Y REMOCIÓN DE DNAmt.
+II. REMOVER mtDNA
+Los comandos deben correrse en la carpeta en donde se encuentra el "assembly.fasta", es decir: mquinones@nautilus:~/secuencias/C7/C7II$
+Usar "blastn", (n) : nucleotido, esta letra puede variar conrespecto a que se va analizar. En este caso se usara pra indezar e identidicar los contigs que contienen "mtDNA". 
+a) Comando: crear una base de datos local de Blast: 
+makeblastdb -in assembly.fasta -dbtype nucl -out genome_db 
+makeblastdb -in assembly_filtered.fasta -dbtype nucl -out genome_db
+resultado: 
+-rw-rw-r-- 1 mquinones mquinones 8.4M Jul 23 17:51 genome_db.nsq
+-rw-rw-r-- 1 mquinones mquinones 48K Jul 23 17:51 genome_db.nin
+-rw-rw-r-- 1 mquinones mquinones 357K Jul 23 17:51 genome_db.nhr
+b) Comando: busqueda del Blast-Local: 
+"  blastn -query ref_mitochondria.fasta -db genome_db -outfmt 6 -out mito_hits.txt "
+ANTES DE CORRER EL COMANDO, DEBEMOS TENER  UN REFERENTE_MITO.FASTA, PARA ELLO LO DESCARGAREMOS DESDE NCBI a NAUTILUS , CON EL SIGUIENTE COMANDO: 
+EL ID, se busca previamente, para saber si existe el OQ916342 corresponde al genoma mitocondrial de Aspergillus tamarii VU91, de 29,691 bp y un solo scaffold mitocondrial.
+En el caso de Aspergillus niger usar el siguiente código: NC_007445.1 ()
+En el caso de Aspergillus tamarii usar el siguiente código: OQ916342 ()
+En el caso de Fusarium usar el siguiente código: KR952337.1 (paper: https://apsjournals.apsnet.org/doi/10.1094/PDIS-01-22-0245-A?utm_source=chatgpt.com)
+En el caso de Trametes hirsuta usar el siguiente código: NC_037239
+1. Primero verifica si tienes efetch
+En Nautilus ejecuta:
+which efetch
+Si te devuelve algo como:
+/home/tu_usuario/edirect/efetch
+entonces podemos continuar.
+find ~ -type f -name efetch 2>/dev/null
+2. Descarga OQ916342 en FASTA
+Ejecuta:
+efetch -db nucleotide -id OQ916342 -format fasta > ref_mitochondria.fasta
+NCBI permite recuperar una secuencia de nucleotide directamente mediante efetch, usando el accession como -id y -format fasta
+SI SALE: 
+ERROR:  curl command failed ( vie 04 sep 2026 20:13:49 CST ) with: 56
+-X POST https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi -d db=nuccore&id=OQ916342&rettype=fasta&retmode=text&tool=edirect&edirect=22.4&edirect_os=Linux&email=mquinones%40nautilus
+HTTP/1.0 200 OK
+En Nautilus ejecuta sin guardar todavía el archivo:
+efetch -db nuccore -id OQ916342 -format fasta
+Si funciona, deberías ver algo parecido a:
+>OQ916342.1 ... ATGCGT... ...
+Si ese comando funciona
+Entonces guarda la secuencia:
+curl -L "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=OQ916342&rettype=fasta&retmode=text" > ref_mitochondria.fasta
+efetch -db nuccore -id KR952337 -format fasta > ref_mitochondria_Fusarium.fasta
+Y verifica:
+ls -lh ref_mitochondria.fasta
+Después:
+head -2 ref_mitochondria.fasta
+Ejemplo de los tres comandos: 
+image.png
+
+2. Comprueba el tamaño
+Ejecuta:
+seqkit stats ref_mitochondria.fasta
+image.png
+
+Al tener los: 
+INPUTS: 
+1.
+"ref_mitocondrial" 
+2.
+"genome_db"
+Ejecutar el comando: 
+blastn -query ref_mitochondria.fasta -db genome_db -outfmt 6 -out mito_hits.txt
+OUTPUT OBTENIDO: 
+-rw-rw-r-- 1 mquinones mquinones 1.2M Jul 23 17:52 mito_hits.txt
+REVISAR EN QUE NO. DE CONTIG SE ENCUENTRA EL mtDNA: 
+1.
+cat mito_hits.txt
+(base) mquinones@nautilus:~/ENSAMBLES170426/Aspergillus_H1/Aspergillus_H1$ cat mito_hits.txt
+OQ916342.1      93      99.875  24816   15      4       4889    29691   1       24813   0.0     45641
+OQ916342.1      93      99.836  4888    6       2       1       4888    24814   29699   0.0     8981
+OQ916342.1      65      90.265  113     9       2       16749   16860   8365    8476    6.29e-33        147
+OQ916342.1      9       98.507  67      1       0       18815   18881   482071  482005  1.37e-24        119
+OQ916342.1      25      97.826  46      1       0       7519    7564    218350  218305  6.47e-13        80.5
+OQ916342.1      25      100.000 38      0       0       15695   15732   338619  338656  3.89e-10        71.3
+OQ916342.1      28      100.000 33      0       0       22997   23029   281827  281795  2.34e-07        62.1
+OQ916342.1      6       97.297  37      0       1       6403    6439    334209  334244  2.34e-07        62.1
+OQ916342.1      1       100.000 32      0       0       6213    6244    525567  525598  8.43e-07        60.2
+La evidencia principal
+Tus dos primeras líneas son:
+OQ916342.1 93 99.875 24816 ... 0.0 45641 OQ916342.1 93 99.836 4888 ... 0.0 8981
+Esto es muy fuerte:
+●
+Contig: 93
+●
+Identidad: 99.875% y 99.836%
+●
+Alineamiento: 24,816 bp + 4,888 bp
+●
+E-value: 0.0
+●
+La referencia mitocondrial mide 29,691 bp.
+●
+Los dos alineamientos cubren prácticamente toda la mitocondria.
+c) Comando: filtrar y retirar duplicados
+1c) Enlistar todos los contigs:  
+INPUTS: 
+A)  output_asperH1_filtered.fasta
+COMANDO A EMPLEAR: 
+" seqkit fx2tab assembly.fasta | cut -f1 | sort | uniq > all_contigs.txt
+seqkit fx2tab _filtered.fasta | cut -f1 | sort | uniq > all_contigs.txt
+ejemplo: 
+1.
+seqkit fx2tab output_asperH1_filtered.fasta | cut -f1 | sort | uniq > all_contigs.txt   
+2.
+/home/user/mambaforge/bin/seqkit fx2tab assembly.fasta | cut -f1 | sort | uniq > all_contigs_Irpex.txt
+OUTPUTS: 
+-rw-rw-r-- 1 mquinones mquinones 110K Jul 29 14:52 all_contigs_Irpex.txt
+1.1.c) Remover los contigs "mitocondrial"
+Comando: 
+1.
+" grep -v "mito_contig_name" all_contigs.txt > nuclear_contigs.txt"
+2.
+"grep -v '^93$' all_contigs.txt > nuclear_contigs.txt"
+resultado: 
+-rw-rw-r-- 1 mquinones mquinones 110K Jul 29 14:56 nuclear_contig_irpexs.txt
+1.12.c) Extraer solo genoma nuclear: 
+1.
+"seqkit grep -f nuclear_contigs.txt your_assembly.fasta > nuclear_only.fasta"
+2.
+"seqkit grep -f nuclear_contigs.txt -n output_Aspergillus_H1_filtered.fasta > nuclear_only_Aspergillus_H1.fasta"
+3.
+seqkit grep -f nuclear_contigs_Fusarium_C9.txt -n Fusarium_C9_filtered.fasta > nuclear_only_Fusarium_C9.fasta
+NOTA: si sale: [WARN] space found in pattern, you may need use -n/--by-name: 1 length=738293 depth=1.00x
+usar: "-n"
+Comando: 
+/home/user/mambaforge/bin/seqkit grep -f nuclear_contigs_GLD.txt -n assembly.fasta > nuclear_only_GLD.fasta
+Resultado: 
+-rw-rw-r-- 1 mquinones mquinones 34M Jul 29 15:03 nuclear_only_irpex.fasta
+Donde:
+your_assembly.fasta: Ensamble a filtrar
+"mito_contig_name" nombre del contig en el genoma a filtrar que concidió con los hits obtenidos en el análisis blast (ver el output mito_hits.txt).
