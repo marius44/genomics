@@ -1,1 +1,5 @@
-for IN in *.fna; do     SAMPLE="${IN%.fna}"     echo "==========================================";     echo "Procesando: $SAMPLE";     echo "=========================================="     amrfinder         --threads 40         --print_node         -O Neisseria_gonorrhoeae         --name "$SAMPLE"         -n "$IN"         -o "$OUTDIR/${SAMPLE}_amrfp.tsv"         --database "$DB" done
+for IN in *.fna; do     
+SAMPLE="${IN%.fna}"     echo "==========================================";     
+echo "Procesando: $SAMPLE";     echo "=========================================="     
+  amrfinder --threads 40 --print_node -O Neisseria_gonorrhoeae --name "$SAMPLE" -n "$IN" -o "$OUTDIR/${SAMPLE}_amrfp.tsv" --database "$DB" 
+done
