@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# Se corre en una Mac o máquina con GPUs potentes
 set -u
 
 # ============================================================
