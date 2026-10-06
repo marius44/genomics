@@ -43,6 +43,7 @@ for IN in "${GENOMES[@]}"; do
         -n "$IN" \
         --database "$DB" \
         -o "$OUTDIR/${SAMPLE}_amrfp.tsv" \
+        --nucleotide_output "$OUTDIR/${SAMPLE}_amrfp.fna" \
         2> "$OUTDIR/${SAMPLE}_amrfp.log"
     then
         echo "Terminado: $SAMPLE"
