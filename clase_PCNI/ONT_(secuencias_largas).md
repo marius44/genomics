@@ -15,6 +15,11 @@ conda activate multiqc
 
 multiqc .
 ```
+Regresar a la carpeta que contiene los archivos fastq
+
+```bash
+cd ..
+```
 
 ## Ensamble con Hybracter.
 Integra remoción de lecturas cortas (FiltLong), corte de adaptadores (porechop) y ensamble (flye). Se debe hacer un archivo input_SU_MUESTRA.csv (Use el comando nano)
