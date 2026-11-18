@@ -11,6 +11,8 @@ fastqc -t 24 -o fastqc *.fastq
 Al finalizar, entrar a la carpeta fastqc y revisar manualmente cada métrica de calidad. Complementariamente se puede condensar toda la información con multiqc. Para hacerlo en la carpeta fastqc correr
 
 ```bash
+conda activate multiqc
+
 multiqc .
 ```
 
@@ -58,7 +60,7 @@ Al finalizar el análisis de todos los ensambles se desactiva el entorno
 ```bash
 conda deactivate 
 ```
-# Análisis de completitud del ensamble
+# Análisis de completitud y contaminación del ensamble
 Se hace con CheckM2
 ```bash
 conda activate checkm2
